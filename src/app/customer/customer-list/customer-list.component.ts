@@ -17,14 +17,6 @@ export class CustomerListComponent {
   ) {}
   pageTitle: string = 'customers';
   customers: Customer[] = [];
-  displayedColumns: string[] = [
-    'id',
-    'name',
-    'location',
-    'phoneNumber',
-    'contact',
-    'actions',
-  ];
 
   ngOnInit(): void {
     this.customers = this.customerService.getCustomers();
@@ -40,6 +32,5 @@ export class CustomerListComponent {
     dialogRef.afterClosed().subscribe(() => {
       this.customerService.deleteCustomer(customer);
     });
-    this.customers = this.customerService.getCustomers();
   }
 }

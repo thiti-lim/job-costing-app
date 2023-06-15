@@ -1,0 +1,117 @@
+<page-header [pageTitle]="pageTitle"></page-header>
+<form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="my-10 mx-72">
+  <div class="bg-purple-600 h-5 rounded-t-md"></div>
+  <div class="bg-white p-10 rounded-b-md">
+    <div class="mb-5 text-xl font-bold text-gray-900">Add New Customer</div>
+    <div class="mb-4">
+      <label for="name" class="block mb-2 text-sm font-medium text-gray-900"
+        >Customer Name</label
+      >
+      <input
+        type="text"
+        formControlName="name"
+        id="name"
+        class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+        placeholder="Enter customer name"
+        required
+      />
+      <div *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+        <div
+          *ngIf="name?.errors?.['required'] || name?.errors?.['whitespace']"
+          class="text-red-500 text-sm mt-1"
+        >
+          Name is required.
+        </div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="location" class="block mb-2 text-sm font-medium text-gray-900"
+        >Location</label
+      >
+      <input
+        type="text"
+        formControlName="location"
+        id="location"
+        class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+        placeholder="Enter customer's address"
+        required
+      />
+      <div *ngIf="location?.invalid && (location?.dirty || location?.touched)">
+        <div
+          *ngIf="location?.errors?.['required'] || location?.errors?.['whitespace']"
+          class="text-red-500 text-sm mt-1"
+        >
+          Location is required.
+        </div>
+      </div>
+    </div>
+    <div class="flex mb-7">
+      <div class="w-1/2 mr-2">
+        <label
+          for="contact"
+          class="block mb-2 text-sm font-medium text-gray-900"
+          >Contact</label
+        >
+        <input
+          type="text"
+          formControlName="contact"
+          id="contact"
+          class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+          placeholder="Enter name for contact"
+          required
+        />
+        <div *ngIf="contact?.invalid && (contact?.dirty || contact?.touched)">
+          <div
+            *ngIf="contact?.errors?.['required'] || contact?.errors?.['whitespace']"
+            class="text-red-500 text-sm mt-1"
+          >
+            Contact is required.
+          </div>
+        </div>
+      </div>
+      <div class="w-1/2 ml-3">
+        <label
+          for="phoneNumber"
+          class="block mb-2 text-sm font-medium text-gray-900"
+          >Phone Number</label
+        >
+        <input
+          type="text"
+          formControlName="phoneNumber"
+          id="phoneNumber"
+          class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+          placeholder="Enter customer phone number"
+          required
+        />
+        <div
+          *ngIf="
+            phoneNumber?.invalid && (phoneNumber?.dirty || phoneNumber?.touched)
+          "
+          class="alert alert-danger"
+        >
+          <div
+            *ngIf="phoneNumber?.errors?.['required'] || phoneNumber?.errors?.['whitespace']"
+            class="text-red-500 text-sm mt-1"
+          >
+            Phone number is required.
+          </div>
+          <div
+            *ngIf="phoneNumber?.errors?.['pattern']"
+            class="text-red-500 text-sm mt-1"
+          >
+            Invalid phone number
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-end">
+      <button
+        type="submit"
+        class="bg-purple-700 text-white py-2 px-4 rounded-md shadow disabled:bg-gray-300 disabled:cursor-not-allowed"
+        [disabled]="customerForm.invalid"
+      >
+        FINISH
+      </button>
+    </div>
+  </div>
+</form>

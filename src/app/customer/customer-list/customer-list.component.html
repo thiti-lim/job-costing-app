@@ -2,17 +2,16 @@
 <div class="my-10 mx-20">
   <div>
     <button class="bg-teal-500 text-white py-2 px-4 rounded-md shadow">
-      ADD CUSTOMER
+      <a routerLink="/customer/new">ADD CUSTOMER</a>
     </button>
   </div>
   <div class="mt-5">
     <table
-      class="table-auto w-full bg-white rounded-xl overflow-hidden border-collapse shadow"
+      class="table-auto w-full bg-white rounded-xl overflow-hidden border-collapse"
     >
       <thead class="bg-purple-700 text-left text-white">
         <tr>
-          <th class="pl-8 pr-4 py-6 font-normal">ID</th>
-          <th class="px-4 py-6 font-normal">Name</th>
+          <th class="pl-8 pr-4 py-6 font-normal">Name</th>
           <th class="px-4 py-6 font-normal">Location</th>
           <th class="px-4 py-6 font-normal">Phone Number</th>
           <th class="px-4 py-6 font-normal">Contact</th>
@@ -22,9 +21,6 @@
       </thead>
       <tbody class="font-light">
         <tr *ngFor="let customer of customers; even as isEven; odd as isOdd">
-          <td class="pl-8 pr-4 py-4  {{ isEven ? 'bg-white' : 'bg-gray-100' }}">
-            {{ customer.id }}
-          </td>
           <td class="py-4 px-4 {{ isEven ? 'bg-white' : 'bg-gray-100' }}">
             {{ customer.name }}
           </td>

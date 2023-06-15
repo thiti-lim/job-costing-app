@@ -13,12 +13,15 @@ import { JobDetailComponent } from './job/job-detail/job-detail.component';
 import { HomeComponent } from './home/home.component';
 import { CustomerListComponent } from './customer/customer-list/customer-list.component';
 import { DeleteDialogComponent } from './components/dialog/delete-dialog/delete-dialog.component';
+import { CustomerDetailComponent } from './customer/customer-detail/customer-detail.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'job/history', component: JobHistoryComponent },
   { path: 'job', redirectTo: 'job/history', pathMatch: 'full' },
   { path: 'customer/list', component: CustomerListComponent },
+  { path: 'customer/:id', component: CustomerDetailComponent },
+  { path: 'customer/new', component: CustomerDetailComponent },
   { path: 'customer', redirectTo: 'customer/list', pathMatch: 'full' },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
@@ -33,6 +36,7 @@ const routes: Routes = [
     HomeComponent,
     CustomerListComponent,
     DeleteDialogComponent,
+    CustomerDetailComponent,
   ],
   imports: [
     BrowserModule,
