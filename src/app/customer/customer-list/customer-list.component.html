@@ -13,8 +13,8 @@
         <tr>
           <th class="pl-8 pr-4 py-6 font-normal">Name</th>
           <th class="px-4 py-6 font-normal">Location</th>
-          <th class="px-4 py-6 font-normal">Phone Number</th>
           <th class="px-4 py-6 font-normal">Contact</th>
+          <th class="px-4 py-6 font-normal">Phone Number</th>
           <th class="w-24"></th>
           <!-- Added column for actions -->
         </tr>
@@ -28,10 +28,10 @@
             {{ customer.location }}
           </td>
           <td class="py-4 px-4 {{ isEven ? 'bg-white' : 'bg-gray-100' }}">
-            {{ customer.phoneNumber }}
+            {{ customer.contact }}
           </td>
           <td class="py-4 px-4 {{ isEven ? 'bg-white' : 'bg-gray-100' }}">
-            {{ customer.contact }}
+            {{ customer.phoneNumber }}
           </td>
           <td class="py-4 px-4 {{ isEven ? 'bg-white' : 'bg-gray-100' }}">
             <button

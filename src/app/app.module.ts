@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'job/history', component: JobHistoryComponent },
   { path: 'job', redirectTo: 'job/history', pathMatch: 'full' },
   { path: 'customer/list', component: CustomerListComponent },
-  { path: 'customer/:id', component: CustomerDetailComponent },
+  { path: 'customer/list/:id', component: CustomerDetailComponent },
   { path: 'customer/new', component: CustomerDetailComponent },
   { path: 'customer', redirectTo: 'customer/list', pathMatch: 'full' },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
