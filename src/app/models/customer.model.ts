@@ -1,8 +1,8 @@
 export class Customer {
   id: number;
   name: string;
-  contact: string;
   location: string;
+  contact: string;
   phoneNumber: string;
 
   constructor(
@@ -15,7 +15,7 @@ export class Customer {
     this.id = id;
     this.name = name;
     this.location = location;
-    this.phoneNumber = phoneNumber;
     this.contact = contact;
+    this.phoneNumber = phoneNumber;
   }
 }

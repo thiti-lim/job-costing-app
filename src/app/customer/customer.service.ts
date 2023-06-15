@@ -12,10 +12,13 @@ export class CustomerService {
     new Customer(4, 'Acme Ltd.', 'Tokyo', 'Sarah Lee', '0678901234'),
     new Customer(5, 'Global Ventures', 'Berlin', 'Robert Brown', '0897654321'),
   ];
-  nextId = 6;
 
   getCustomers(): Customer[] {
     return this.customers;
+  }
+
+  getCustomerById(id: number): Customer | undefined {
+    return this.customers.find((customer) => customer.id === id);
   }
 
   deleteCustomer(customer: Customer): void {
@@ -25,7 +28,23 @@ export class CustomerService {
     }
   }
 
-  addCustomer(customer: Customer): void {
-    this.customers.push(customer);
+  addCustomer(
+    name: string,
+    location: string,
+    contact: string,
+    phoneNumber: string
+  ): void {
+    const maxId = Math.max(...this.customers.map((customer) => customer.id));
+    this.customers.push(
+      new Customer(maxId + 1, name, location, contact, phoneNumber)
+    );
+  }
+  updateCustomer(updatedCustomer: Customer): void {
+    const index = this.customers.findIndex(
+      (customer) => customer.id === updatedCustomer.id
+    );
+    if (index > -1) {
+      this.customers[index] = updatedCustomer;
+    }
   }
 }

@@ -57,13 +57,10 @@ export class CustomerDetailComponent {
     }
     if (this.isNewCustomer) {
       this.customerService.addCustomer(
-        new Customer(
-          this.customerService.nextId++,
           this.name!.value,
           this.location!.value,
           this.contact!.value,
           this.phoneNumber!.value
-        )
       );
       console.log(this.customerService.customers);
       console.log(this.router.url);
