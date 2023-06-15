@@ -21,7 +21,7 @@
       </thead>
       <tbody class="font-light">
         <tr *ngFor="let customer of customers; even as isEven; odd as isOdd">
-          <td class="py-4 px-4 {{ isEven ? 'bg-white' : 'bg-gray-100' }}">
+          <td class="py-4 pl-8 pr-4 {{ isEven ? 'bg-white' : 'bg-gray-100' }}">
             {{ customer.name }}
           </td>
           <td class="py-4 px-4 {{ isEven ? 'bg-white' : 'bg-gray-100' }}">
