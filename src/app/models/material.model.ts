@@ -1,3 +1,5 @@
+import { DirectMaterialCost } from './direct-material-cost.model';
+
 export class Material {
   id: number;
   name: string;
@@ -5,6 +7,7 @@ export class Material {
   estimatedTotalCost: number;
   actualUnits: number = 0;
   actualCost: number = 0;
+  directMaterialCosts: DirectMaterialCost[] = [];
 
   constructor(
     id: number,

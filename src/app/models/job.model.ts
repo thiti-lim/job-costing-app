@@ -1,3 +1,5 @@
+import { Material } from './material.model';
+import { Labor } from './labor.model';
 import { Customer } from './customer.model';
 
 export class Job {
@@ -5,6 +7,8 @@ export class Job {
   customer: Customer;
   startDate: Date;
   finishDate: Date;
+  materials: Material[] = [];
+  labors: Labor[] = [];
   overheadRate: number;
   totalMaterialCost: number;
   totalLaborCost: number;
