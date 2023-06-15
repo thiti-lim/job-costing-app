@@ -2,7 +2,9 @@
 <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="my-10 mx-72">
   <div class="bg-purple-600 h-6 rounded-t-md"></div>
   <div class="bg-white py-8 px-10 rounded-b-md">
-    <div class="mb-5 text-xl font-bold text-gray-900">Add New Customer</div>
+    <div class="mb-5 text-xl font-bold text-gray-900">
+      {{ isNewCustomer ? 'Add' : 'Edit' }} Customer
+    </div>
     <div class="mb-4">
       <label for="name" class="block mb-2 text-sm font-medium text-gray-900"
         >Customer Name</label
@@ -105,12 +107,13 @@
       </div>
     </div>
     <div class="flex justify-end">
+      <button class="mx-3 text-sm font-medium" (click)="returnToList()">Cancel</button>
       <button
         type="submit"
-        class="bg-purple-700 text-white py-2 px-4 rounded-md shadow disabled:bg-gray-300 disabled:cursor-not-allowed"
+        class="bg-purple-700 text-white py-2 px-4 rounded-md shadow hover:bg-purple-900 disabled:bg-gray-300 disabled:cursor-not-allowed"
         [disabled]="customerForm.invalid"
       >
-        FINISH
+        {{ isNewCustomer ? 'ADD' : 'EDIT' }}
       </button>
     </div>
   </div>

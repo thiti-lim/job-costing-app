@@ -39,12 +39,22 @@ export class CustomerService {
       new Customer(maxId + 1, name, location, contact, phoneNumber)
     );
   }
-  updateCustomer(updatedCustomer: Customer): void {
-    const index = this.customers.findIndex(
-      (customer) => customer.id === updatedCustomer.id
-    );
+  updateCustomer(
+    id: number,
+    name: string,
+    location: string,
+    contact: string,
+    phoneNumber: string
+  ): void {
+    const index = this.customers.findIndex((customer) => customer.id === id);
     if (index > -1) {
-      this.customers[index] = updatedCustomer;
+      this.customers[index] = new Customer(
+        id,
+        name,
+        location,
+        contact,
+        phoneNumber
+      );
     }
   }
 }

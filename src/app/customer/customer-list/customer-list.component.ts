@@ -4,6 +4,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/components/dialog/delete-dialog/delete-dialog.component';
 import { MatTable } from '@angular/material/table';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-list',
@@ -13,7 +14,8 @@ import { MatTable } from '@angular/material/table';
 export class CustomerListComponent {
   constructor(
     private customerService: CustomerService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
   pageTitle: string = 'customers';
   customers: Customer[] = [];
@@ -22,15 +24,20 @@ export class CustomerListComponent {
     this.customers = this.customerService.getCustomers();
   }
   editCustomer(customer: Customer) {
-    // Handle edit action
-    console.log('Editing customer:', customer);
+    this.router.navigate(['/customer/list', customer.id]);
   }
 
   deleteCustomer(customer: Customer) {
     // Handle delete action
     const dialogRef = this.dialog.open(DeleteDialogComponent);
-    dialogRef.afterClosed().subscribe(() => {
-      this.customerService.deleteCustomer(customer);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.customerService.deleteCustomer(customer);
+      }
     });
+  }
+
+  addCustomer() {
+    this.router.navigate(['/customer/new']);
   }
 }

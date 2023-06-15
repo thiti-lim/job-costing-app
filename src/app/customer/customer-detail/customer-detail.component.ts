@@ -14,6 +14,7 @@ export class CustomerDetailComponent {
   pageTitle: string = 'Customer Detail';
   customerForm!: FormGroup;
   isNewCustomer!: boolean;
+  customer?: Customer;
   constructor(
     private customerService: CustomerService,
     private formBuilder: FormBuilder,
@@ -25,15 +26,32 @@ export class CustomerDetailComponent {
     const currentRoute = this.activatedRoute.snapshot;
     if (currentRoute.url.join('/') === 'customer/new') {
       this.isNewCustomer = true;
+      this.pageTitle = 'new customer';
     } else {
-      false;
+      this.isNewCustomer = false;
+      this.pageTitle = 'update customer';
+      const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+      this.customer = this.customerService.getCustomerById(id);
+      console.log(this.customer);
     }
     // Access the current route or perform any desired action
     this.customerForm = this.formBuilder.group({
-      name: ['', [Validators.required, whitespaceValidator()]],
-      location: ['', [Validators.required, whitespaceValidator()]],
-      contact: ['', [Validators.required, whitespaceValidator()]],
-      phoneNumber: ['', [Validators.required, Validators.pattern(/^0\d{9}$/)]],
+      name: [
+        this.customer?.name ?? '',
+        [Validators.required, whitespaceValidator()],
+      ],
+      location: [
+        this.customer?.location ?? '',
+        [Validators.required, whitespaceValidator()],
+      ],
+      contact: [
+        this.customer?.contact ?? '',
+        [Validators.required, whitespaceValidator()],
+      ],
+      phoneNumber: [
+        this.customer?.phoneNumber ?? '',
+        [Validators.required, Validators.pattern(/^0\d{9}$/)],
+      ],
     });
   }
 
@@ -51,20 +69,31 @@ export class CustomerDetailComponent {
     return this.customerForm.get('phoneNumber');
   }
 
+  returnToList() {
+    this.router.navigateByUrl('/customer/list');
+  }
+
   onSubmit() {
     if (this.customerForm.invalid) {
       return;
     }
     if (this.isNewCustomer) {
       this.customerService.addCustomer(
-          this.name!.value,
-          this.location!.value,
-          this.contact!.value,
-          this.phoneNumber!.value
+        this.name!.value,
+        this.location!.value,
+        this.contact!.value,
+        this.phoneNumber!.value
       );
-      console.log(this.customerService.customers);
-      console.log(this.router.url);
       this.router.navigateByUrl('/customer');
+    } else {
+      this.customerService.updateCustomer(
+        this.customer!.id,
+        this.name!.value,
+        this.location!.value,
+        this.contact!.value,
+        this.phoneNumber!.value
+      );
+      this.router.navigateByUrl('/customer/list');
     }
   }
 }
