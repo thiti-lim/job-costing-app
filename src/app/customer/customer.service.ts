@@ -22,4 +22,11 @@ export class CustomerService {
   getCustomers(): Customer[] {
     return this.customers;
   }
+
+  deleteCustomer(customer: Customer): void {
+    const index = this.customers.indexOf(customer);
+    if (index > -1) {
+      this.customers.splice(index, 1);
+    }
+  }
 }

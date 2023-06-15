@@ -12,6 +12,7 @@ import { AddJobComponent } from './job/add-job/add-job.component';
 import { JobDetailComponent } from './job/job-detail/job-detail.component';
 import { HomeComponent } from './home/home.component';
 import { CustomerListComponent } from './customer/customer-list/customer-list.component';
+import { DeleteDialogComponent } from './components/dialog/delete-dialog/delete-dialog.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
     JobDetailComponent,
     HomeComponent,
     CustomerListComponent,
+    DeleteDialogComponent,
   ],
   imports: [
     BrowserModule,
