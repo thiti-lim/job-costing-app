@@ -5,9 +5,9 @@ export class Material {
   name: string;
   estimatedUnits: number;
   estimatedTotalCost: number;
-  actualUnits: number = 0;
-  actualCost: number = 0;
-  directMaterialCosts: DirectMaterialCost[] = [];
+  actualUnits: number;
+  actualCost: number;
+  directMaterialCosts: DirectMaterialCost[];
 
   constructor(
     id: number,
@@ -19,5 +19,8 @@ export class Material {
     this.name = name;
     this.estimatedUnits = estimatedUnits;
     this.estimatedTotalCost = estimatedTotalCost;
+    this.actualUnits = 0;
+    this.actualCost = 0;
+    this.directMaterialCosts = [];
   }
 }
