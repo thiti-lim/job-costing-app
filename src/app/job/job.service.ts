@@ -70,7 +70,9 @@ export class JobService {
     directLaborCosts: [],
   };
 
-  constructor(private customerService: CustomerService) {}
+  constructor(private customerService: CustomerService) {
+    this.createMockJobs();
+  }
 
   getJobs(): Job[] {
     return this.jobs;

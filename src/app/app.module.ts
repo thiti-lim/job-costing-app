@@ -14,11 +14,24 @@ import { HomeComponent } from './home/home.component';
 import { CustomerListComponent } from './customer/customer-list/customer-list.component';
 import { DeleteDialogComponent } from './components/dialog/delete-dialog/delete-dialog.component';
 import { CustomerDetailComponent } from './customer/customer-detail/customer-detail.component';
+import { MaterialCostListComponent } from './material/material-cost-list/material-cost-list.component';
+import { MaterialCostDetailComponent } from './material/material-cost-detail/material-cost-detail.component';
+import { LaborCostListComponent } from './labor/labor-cost-list/labor-cost-list.component';
+import { LaborCostDetailComponent } from './labor/labor-cost-detail/labor-cost-detail.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'job/history', component: JobHistoryComponent },
   { path: 'job', redirectTo: 'job/history', pathMatch: 'full' },
+  { path: 'job/new', component: AddJobComponent },
+  { path: 'job/:id', component: JobDetailComponent },
+  { path: 'job/:id/material/:id/costs', component: MaterialCostListComponent },
+  { path: 'job/:id/labor/:id/costs', component: LaborCostListComponent },
+  {
+    path: 'job/:id/material/:id/costs/:id',
+    component: MaterialCostListComponent,
+  },
+  { path: 'job/:id/labor/:id/costs/:id', component: LaborCostDetailComponent },
   { path: 'customer/list', component: CustomerListComponent },
   { path: 'customer/list/:id', component: CustomerDetailComponent },
   { path: 'customer/new', component: CustomerDetailComponent },
@@ -37,6 +50,10 @@ const routes: Routes = [
     CustomerListComponent,
     DeleteDialogComponent,
     CustomerDetailComponent,
+    MaterialCostListComponent,
+    MaterialCostDetailComponent,
+    LaborCostListComponent,
+    LaborCostDetailComponent,
   ],
   imports: [
     BrowserModule,

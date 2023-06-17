@@ -1,1 +1,45 @@
 <page-header [pageTitle]="pageTitle"></page-header>
+<div class="my-10 mx-20">
+  <div>
+    <button class="bg-teal-500 text-white py-2 px-4 rounded-md shadow">
+      <a routerLink="/job/new">ADD JOB</a>
+    </button>
+  </div>
+  <div class="mt-5">
+    <table
+      class="table-auto w-full bg-white rounded-xl overflow-hidden border-collapse shadow"
+    >
+      <thead class="bg-purple-700 text-left text-white">
+        <tr>
+          <th class="pl-8 pr-4 py-6 font-normal">Name</th>
+          <th class="px-4 py-6 font-normal">Customer</th>
+          <th class="px-4 py-6 font-normal">Start Date</th>
+          <th class="px-4 py-6 font-normal">Finish Date</th>
+          <th class="px-4 py-6 font-normal">Materials</th>
+          <th class="px-4 py-6 font-normal">Labors</th>
+          <th class="px-4 py-6 font-normal">Status</th>
+          <!-- Added column for actions -->
+        </tr>
+      </thead>
+      <tbody class="font-light">
+        <ng-container *ngFor="let job of jobs; let even = even; let odd = odd">
+          <tr
+            (click)="toJobDetail(job)"
+            class="cursor-pointer hover:bg-purple-200 hover:bg-opacity-50"
+            [ngClass]="{ 'bg-white': even, 'bg-gray-100': odd }"
+          >
+            <td class="py-4 pl-8 pr-4">{{ job.name }}</td>
+            <td class="py-4 px-4">{{ job.customer.name }}</td>
+            <td class="py-4 px-4">{{ job.startDate | date : 'dd/MM/yyyy' }}</td>
+            <td class="py-4 px-4">
+              {{ job.finishDate | date : 'dd/MM/yyyy' }}
+            </td>
+            <td class="py-4 px-4">{{ job.materials.length }}</td>
+            <td class="py-4 px-4">{{ job.labors.length }}</td>
+            <td class="py-4 px-4">{{ job.status }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
