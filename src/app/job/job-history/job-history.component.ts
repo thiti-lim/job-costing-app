@@ -13,7 +13,6 @@ export class JobHistoryComponent {
   constructor(private jobService: JobService, private router: Router) {}
   ngOnInit(): void {
     this.jobs = this.jobService.getJobs();
-    console.log(this.jobs);
   }
 
   toJobDetail(job: Job): void {

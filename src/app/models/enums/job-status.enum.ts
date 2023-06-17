@@ -1,5 +1,5 @@
 export enum JobStatus {
-    Created = "Created",
-    InProgress = "In Progress",
-    Completed = "Completed",
-  }
+  Created = 'Created',
+  InProgress = 'In Progress',
+  Completed = 'Completed',
+}

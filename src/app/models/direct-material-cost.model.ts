@@ -8,12 +8,10 @@ export class DirectMaterialCost {
   seller: string;
   refNo: string;
   date: Date;
-  material: Material;
 
   constructor(
     id: number,
     name: string,
-    material: Material,
     units: number,
     costPerUnit: number,
     seller: string,
@@ -27,6 +25,5 @@ export class DirectMaterialCost {
     this.seller = seller;
     this.refNo = refNo;
     this.date = date;
-    this.material = material;
   }
 }

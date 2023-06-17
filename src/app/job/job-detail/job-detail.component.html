@@ -1,1 +1,104 @@
 <page-header [pageTitle]="pageTitle"></page-header>
+<div class="flex m-8 mb-3 justify-center flex-wrap">
+  <!-- fab buttons -->
+  <div class="w-2/3">
+    <!-- card header -->
+    <div
+      class="flex justify-between bg-purple-700 rounded-t-lg border-0 shadow-md px-6 py-4"
+    >
+      <div class="flex-col">
+        <div class="flex items-center mb-0.5">
+          <div class="text-purple-100 text-xl mr-1.5">{{ job.name }}</div>
+          <div class="text-teal-300 text-xl">
+            {{ job.customer.name }}
+          </div>
+        </div>
+        <div class="text-purple-300 text-md">
+          {{ job.startDate | date : 'dd/MM/yy' }} -
+          {{ job.finishDate | date : 'dd/MM/yy' }}
+        </div>
+      </div>
+    </div>
+    <!-- card content -->
+    <div class="flex-col bg-white px-2 py-5 rounded-b-lg">
+      <!-- inputs -->
+      <div class="flex justify-evenly">
+        <!-- material -->
+        <div class="flex-col w-1/2 mx-5">
+          <div class="text-center mb-4">Direct Materials</div>
+          <hr class="mb-5 h-1" />
+          <div
+            *ngFor="let material of job.materials"
+            class="flex justify-between my-5 border-b"
+          >
+            <div class="mb-5">
+              <div class="text-xl mb-2 font-medium text-teal-700">
+                {{ material.name }}
+              </div>
+              <div class="flex text-sm text-gray-500">
+                <div class="font-medium mr-1">
+                  {{ material.actualTotalCost }}
+                </div>
+                <div class="font-light">baht total</div>
+              </div>
+              <div class="flex text-sm text-gray-500">
+                <div class="font-medium mr-1">{{ material.costPerUnit }}</div>
+                <div class="font-light">baht per unit</div>
+              </div>
+            </div>
+            <div class="w-1/2 mb-5">
+              <div class="mb-4">
+                <div class="flex justify-between">
+                  <div class="text-xs">Cost</div>
+                  <div class="text-xs">
+                    {{ material.actualTotalCost }} /
+                    {{ material.estimatedTotalCost }}
+                    ({{
+                      (material.actualTotalCost / material.estimatedTotalCost) *
+                        100 | number : '1.0-0'
+                    }}%)
+                  </div>
+                </div>
+                <div class="bg-gray-200 rounded-full h-1">
+                  <div
+                    class="bg-blue-600 h-1 rounded-full"
+                    [style.width.%]="
+                      (material.actualTotalCost / material.estimatedTotalCost) *
+                      100
+                    "
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between">
+                  <div class="text-xs">Units</div>
+                  <div class="text-xs">
+                    {{ material.actualUnits }} /
+                    {{ material.estimatedUnits }} ({{
+                      (material.actualUnits / material.estimatedUnits) * 100
+                        | number : '1.0-0'
+                    }}%)
+                  </div>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-1">
+                  <div
+                    class="bg-blue-600 h-1 rounded-full"
+                    [style.width.%]="
+                      (material.actualUnits / material.estimatedUnits) * 100
+                    "
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-0.5 bg-gray-300"></div>
+        <!-- labor -->
+        <div class="flex-col grow w-1/2 mx-5">
+          <div class="text-center">Direct Labors</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

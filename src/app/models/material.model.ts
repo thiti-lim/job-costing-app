@@ -5,8 +5,6 @@ export class Material {
   name: string;
   estimatedUnits: number;
   estimatedTotalCost: number;
-  actualUnits: number;
-  actualCost: number;
   directMaterialCosts: DirectMaterialCost[];
 
   constructor(
@@ -19,8 +17,23 @@ export class Material {
     this.name = name;
     this.estimatedUnits = estimatedUnits;
     this.estimatedTotalCost = estimatedTotalCost;
-    this.actualUnits = 0;
-    this.actualCost = 0;
     this.directMaterialCosts = [];
+  }
+
+  get actualTotalCost(): number {
+    return this.directMaterialCosts.reduce(
+      (acc, current) => acc + current.costPerUnit * current.units,
+      0
+    );
+  }
+  get actualUnits(): number {
+    return this.directMaterialCosts.reduce(
+      (acc, current) => acc + current.units,
+      0
+    );
+  }
+
+  get costPerUnit(): number {
+    return this.actualTotalCost / this.actualUnits;
   }
 }
