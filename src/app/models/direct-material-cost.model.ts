@@ -26,4 +26,8 @@ export class DirectMaterialCost {
     this.refNo = refNo;
     this.date = date;
   }
+
+  get totalCost(): number {
+    return this.units * this.costPerUnit;
+  }
 }

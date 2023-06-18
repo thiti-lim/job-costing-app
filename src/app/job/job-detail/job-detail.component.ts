@@ -1,5 +1,5 @@
 import { JobService } from './../job.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Job } from './../../models/job.model';
 import { Component } from '@angular/core';
 
@@ -13,6 +13,7 @@ export class JobDetailComponent {
   job!: Job;
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private jobService: JobService
   ) {}
@@ -21,5 +22,14 @@ export class JobDetailComponent {
     const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.job = this.jobService.getJobById(id)!;
     console.log(this.job);
+  }
+
+  toMaterialDetail(): void {
+    console.log(this.router.url);
+    this.router.navigate([this.router.url + '/material', 1]);
+  }
+
+  toMaterialAdd(): void {
+    this.router.navigate(['/customer/new']);
   }
 }

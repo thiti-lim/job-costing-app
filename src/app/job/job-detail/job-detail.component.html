@@ -42,7 +42,9 @@
                 <div class="font-light">baht total</div>
               </div>
               <div class="flex text-sm text-gray-500">
-                <div class="font-medium mr-1">{{ material.costPerUnit }}</div>
+                <div class="font-medium mr-1">
+                  {{ material.costPerUnit | number : '1.1-2' }}
+                </div>
                 <div class="font-light">baht per unit</div>
               </div>
             </div>
@@ -90,7 +92,10 @@
                 </div>
               </div>
               <div class="flex justify-end">
-                <button class="bg-purple-500 rounded p-1 mr-1.5">
+                <button
+                  class="bg-purple-500 rounded p-1 mr-1.5"
+                  (click)="toMaterialDetail()"
+                >
                   <div class="text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

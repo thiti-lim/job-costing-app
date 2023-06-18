@@ -26,6 +26,11 @@ const routes: Routes = [
   { path: 'job/new', component: AddJobComponent },
   { path: 'job/:id', component: JobDetailComponent },
   { path: 'job/:id/material/:id/costs', component: MaterialCostListComponent },
+  {
+    path: 'job/:id/material/:id',
+    redirectTo: 'job/:id/material/:id/costs',
+    pathMatch: 'full',
+  },
   { path: 'job/:id/labor/:id/costs', component: LaborCostListComponent },
   {
     path: 'job/:id/material/:id/costs/:id',

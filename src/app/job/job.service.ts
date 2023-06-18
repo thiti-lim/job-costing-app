@@ -25,6 +25,30 @@ export class JobService {
   getJobById(id: number): Job | undefined {
     return this.jobs.find((job) => job.id === id);
   }
+  getDirectMaterialCosts(
+    jobId: number,
+    materialId: number
+  ): DirectMaterialCost[] {
+    const job = this.getJobById(jobId);
+    if (job) {
+      const material = job.materials.find((mat) => mat.id === materialId);
+      if (material) {
+        return material.directMaterialCosts;
+      }
+    }
+    return [];
+  }
+
+  getDirectLaborCosts(jobId: number, laborId: number): DirectLaborCost[] {
+    const job = this.getJobById(jobId);
+    if (job) {
+      const labor = job.labors.find((lab) => lab.id === laborId);
+      if (labor) {
+        return labor.directLaborCosts;
+      }
+    }
+    return [];
+  }
 
   createMockJobs(): void {
     // Create jobs using mock data
@@ -37,7 +61,7 @@ export class JobService {
       0.1,
       JobStatus.InProgress
     );
-    const material1 = new Material(1, 'Material 1', 80, 700);
+    const material1 = new Material(1, 'Wood', 220, 7000);
     const material2 = new Material(2, 'Material 2', 92, 600);
     job1.materials.push(material1, material2);
     const labor1 = new Labor(1, 'Labor 1', 10, 100);
@@ -78,11 +102,47 @@ export class JobService {
     material1.directMaterialCosts.push(
       new DirectMaterialCost(
         1,
-        'Direct Material Cost 1',
+        'DM Wood Cost 1',
         10,
         10,
         'Seller 1',
-        'DM-001',
+        'WOOD-001',
+        new Date()
+      ),
+      new DirectMaterialCost(
+        2,
+        'DM Wood Cost 2',
+        20,
+        15,
+        'Seller 2',
+        'WOOD-002',
+        new Date()
+      ),
+      new DirectMaterialCost(
+        3,
+        'DM Wood Cost 3',
+        15,
+        8,
+        'Seller 1',
+        'WOOD-003',
+        new Date()
+      ),
+      new DirectMaterialCost(
+        4,
+        'DM Wood Cost 4',
+        25,
+        12,
+        'Seller 2',
+        'WOOD-004',
+        new Date()
+      ),
+      new DirectMaterialCost(
+        5,
+        'DM Wood Cost 5',
+        18,
+        9,
+        'Seller 1',
+        'WOOD-005',
         new Date()
       )
     );
