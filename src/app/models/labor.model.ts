@@ -34,6 +34,7 @@ export class Labor {
   }
 
   get costPerHour(): number {
+    if (this.actualHours == 0) return 0; 
     return this.actualTotalCost / this.actualHours;
   }
 }

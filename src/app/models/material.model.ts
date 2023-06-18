@@ -34,6 +34,8 @@ export class Material {
   }
 
   get costPerUnit(): number {
+    if (this.actualUnits == 0) return 0;
+
     return this.actualTotalCost / this.actualUnits;
   }
 }

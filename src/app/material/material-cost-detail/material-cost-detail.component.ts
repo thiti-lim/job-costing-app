@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./material-cost-detail.component.css'],
 })
 export class MaterialCostDetailComponent {
-  pageTitle: string = 'Add Direct Material Cost';
+  pageTitle: string = 'Add Material Cost';
   costForm!: FormGroup;
 
   constructor(private router: Router, private location: Location) {}

@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./labor-cost-detail.component.css'],
 })
 export class LaborCostDetailComponent {
-  pageTitle: string = 'Add Direct Labor Cost';
+  pageTitle: string = 'Add Labor Cost';
   costForm!: FormGroup;
 
   constructor(private router: Router, private location: Location) {}
