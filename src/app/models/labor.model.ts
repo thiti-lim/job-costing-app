@@ -1,5 +1,4 @@
 import { DirectLaborCost } from './direct-labor-cost.model';
-import { Job } from './job.model';
 
 export class Labor {
   id: number;
@@ -22,9 +21,19 @@ export class Labor {
   }
 
   get actualTotalCost(): number {
-    return 4;
+    return this.directLaborCosts.reduce(
+      (acc, current) => acc + current.costPerHour * current.hours,
+      0
+    );
   }
   get actualHours(): number {
-    return 10;
+    return this.directLaborCosts.reduce(
+      (acc, current) => acc + current.hours,
+      0
+    );
+  }
+
+  get costPerHour(): number {
+    return this.actualTotalCost / this.actualHours;
   }
 }

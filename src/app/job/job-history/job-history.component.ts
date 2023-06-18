@@ -18,4 +18,8 @@ export class JobHistoryComponent {
   toJobDetail(job: Job): void {
     this.router.navigate(['/job', job.id]);
   }
+
+  addJob(): void {
+    this.router.navigate(['job/new']);
+  }
 }

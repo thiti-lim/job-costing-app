@@ -30,7 +30,9 @@ export class CustomerDetailComponent {
     } else {
       this.isNewCustomer = false;
       this.pageTitle = 'update customer';
-      const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+      const id = Number(
+        this.activatedRoute.snapshot.paramMap.get('customerId')
+      );
       this.customer = this.customerService.getCustomerById(id);
       console.log(this.customer);
     }

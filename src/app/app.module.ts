@@ -24,23 +24,31 @@ const routes: Routes = [
   { path: 'job/history', component: JobHistoryComponent },
   { path: 'job', redirectTo: 'job/history', pathMatch: 'full' },
   { path: 'job/new', component: AddJobComponent },
-  { path: 'job/:id', component: JobDetailComponent },
-  { path: 'job/:id/material/:id/costs', component: MaterialCostListComponent },
+  { path: 'job/:jobId', component: JobDetailComponent },
   {
-    path: 'job/:id/material/:id',
-    redirectTo: 'job/:id/material/:id/costs',
-    pathMatch: 'full',
-  },
-  { path: 'job/:id/labor/:id/costs', component: LaborCostListComponent },
-  {
-    path: 'job/:id/material/:id/costs/:id',
+    path: 'job/:jobId/material/:matId/costs',
     component: MaterialCostListComponent,
   },
-  { path: 'job/:id/labor/:id/costs/:id', component: LaborCostDetailComponent },
+  { path: 'job/:jobId/labor/:labId/costs', component: LaborCostListComponent },
+  {
+    path: 'job/:jobId/labor/:labId/costs/new',
+    component: LaborCostDetailComponent,
+  },
+  {
+    path: 'job/:jobId/material/:matId/costs/:dmId',
+    component: MaterialCostDetailComponent,
+  },
+  {
+    path: 'job/:jobId/material/:matId/costs/new',
+    component: MaterialCostDetailComponent,
+  },
+  {
+    path: 'job/:jobId/labor/:labId/costs/:dlId',
+    component: LaborCostDetailComponent,
+  },
   { path: 'customer/list', component: CustomerListComponent },
-  { path: 'customer/list/:id', component: CustomerDetailComponent },
+  { path: 'customer/list/:customerId', component: CustomerDetailComponent },
   { path: 'customer/new', component: CustomerDetailComponent },
-  { path: 'customer', redirectTo: 'customer/list', pathMatch: 'full' },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 

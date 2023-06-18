@@ -50,6 +50,44 @@ export class JobService {
     return [];
   }
 
+  removeDirectMaterialCost(
+    jobId: number,
+    materialId: number,
+    directMaterialCostId: number
+  ): void {
+    const job = this.getJobById(jobId);
+    if (job) {
+      const material = job.materials.find((mat) => mat.id === materialId);
+      if (material) {
+        const directMaterialCostIndex = material.directMaterialCosts.findIndex(
+          (cost) => cost.id === directMaterialCostId
+        );
+        if (directMaterialCostIndex > -1) {
+          material.directMaterialCosts.splice(directMaterialCostIndex, 1);
+        }
+      }
+    }
+  }
+
+  removeDirectLaborCost(
+    jobId: number,
+    laborId: number,
+    directLaborCostId: number
+  ): void {
+    const job = this.getJobById(jobId);
+    if (job) {
+      const labor = job.labors.find((lab) => lab.id === laborId);
+      if (labor) {
+        const directLaborCostIndex = labor.directLaborCosts.findIndex(
+          (cost) => cost.id === directLaborCostId
+        );
+        if (directLaborCostIndex > -1) {
+          labor.directLaborCosts.splice(directLaborCostIndex, 1);
+        }
+      }
+    }
+  }
+
   createMockJobs(): void {
     // Create jobs using mock data
     const job1 = new Job(

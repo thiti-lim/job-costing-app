@@ -3,7 +3,6 @@ import { CustomerService } from './../customer.service';
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/components/dialog/delete-dialog/delete-dialog.component';
-import { MatTable } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 @Component({

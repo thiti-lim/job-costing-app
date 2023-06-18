@@ -2,6 +2,8 @@ import { JobService } from './../job.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Job } from './../../models/job.model';
 import { Component } from '@angular/core';
+import { Material } from 'src/app/models/material.model';
+import { Labor } from 'src/app/models/labor.model';
 
 @Component({
   selector: 'app-job-detail',
@@ -19,17 +21,28 @@ export class JobDetailComponent {
   ) {}
 
   ngOnInit(): void {
-    const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    const id = Number(this.activatedRoute.snapshot.paramMap.get('jobId'));
     this.job = this.jobService.getJobById(id)!;
     console.log(this.job);
   }
 
-  toMaterialDetail(): void {
-    console.log(this.router.url);
-    this.router.navigate([this.router.url + '/material', 1]);
+  toDirectMaterialCostList(material: Material): void {
+    this.router.navigate([this.router.url, 'material', material.id, 'costs']);
+  }
+  toDirectLaborCostList(labor: Labor): void {
+    this.router.navigate([this.router.url, 'labor', labor.id, 'costs']);
   }
 
-  toMaterialAdd(): void {
-    this.router.navigate(['/customer/new']);
+  toDirectMaterialCostAdd(material: Material): void {
+    this.router.navigate([
+      this.router.url,
+      'material',
+      material.id,
+      'costs',
+      'new',
+    ]);
+  }
+  toDirectLaborCostAdd(labor: Labor): void {
+    this.router.navigate([this.router.url, 'labor', labor.id, 'costs', 'new']);
   }
 }
