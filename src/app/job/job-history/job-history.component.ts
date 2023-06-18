@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { JobService } from '../job.service';
 import { Job } from 'src/app/models/job.model';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-job-history',
   templateUrl: './job-history.component.html',
@@ -10,7 +11,11 @@ import { Router } from '@angular/router';
 export class JobHistoryComponent {
   pageTitle: string = 'jobs';
   jobs: Job[] = [];
-  constructor(private jobService: JobService, private router: Router) {}
+  constructor(
+    private jobService: JobService,
+    private router: Router,
+    private location: Location
+  ) {}
   ngOnInit(): void {
     this.jobs = this.jobService.getJobs();
   }
@@ -24,6 +29,6 @@ export class JobHistoryComponent {
   }
 
   goBack(): void {
-    this.router.navigate(['/home']);
+    this.location.back();
   }
 }

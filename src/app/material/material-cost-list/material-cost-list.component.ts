@@ -4,6 +4,7 @@ import { DirectMaterialCost } from 'src/app/models/direct-material-cost.model';
 import { JobService } from 'src/app/job/job.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/components/dialog/delete-dialog/delete-dialog.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-material-cost-list',
@@ -20,7 +21,8 @@ export class MaterialCostListComponent {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private jobService: JobService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +56,6 @@ export class MaterialCostListComponent {
   }
 
   goBack(): void {
-    this.router.navigate(['job', this.jobId]);
+    this.location.back();
   }
 }

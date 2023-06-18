@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { whitespaceValidator } from 'src/app/helpers/validators';
 import { CustomerService } from '../customer.service';
 import { Customer } from 'src/app/models/customer.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-customer-detail',
@@ -19,7 +20,8 @@ export class CustomerDetailComponent {
     private customerService: CustomerService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private routeLocation: Location,
   ) {}
 
   ngOnInit() {
@@ -100,6 +102,6 @@ export class CustomerDetailComponent {
   }
 
   goBack(): void {
-    this.router.navigate(['/customer/list']);
+    this.routeLocation.back();
   }
 }

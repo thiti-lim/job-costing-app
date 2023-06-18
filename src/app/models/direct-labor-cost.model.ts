@@ -23,4 +23,8 @@ export class DirectLaborCost {
     this.refNo = refNo;
     this.date = date;
   }
+
+  get totalCost(): number {
+    return this.hours * this.costPerHour;
+  }
 }

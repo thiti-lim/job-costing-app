@@ -4,6 +4,7 @@ import { Job } from './../../models/job.model';
 import { Component } from '@angular/core';
 import { Material } from 'src/app/models/material.model';
 import { Labor } from 'src/app/models/labor.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-job-detail',
@@ -17,7 +18,8 @@ export class JobDetailComponent {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private jobService: JobService
+    private jobService: JobService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -46,8 +48,7 @@ export class JobDetailComponent {
   toDirectLaborCostAdd(labor: Labor): void {
     this.router.navigate([this.router.url, 'labor', labor.id, 'costs', 'new']);
   }
-
   goBack(): void {
-    this.router.navigate(['/job/history']);
+    this.location.back();
   }
 }

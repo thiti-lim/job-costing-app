@@ -1,1 +1,12 @@
-<p>material-cost-detail works!</p>
+<page-header [pageTitle]="pageTitle"></page-header>
+<form [formGroup]="costForm" (ngSubmit)="onSubmit()" class="my-10 mx-72">
+  <div class="flex justify-between">
+    <button
+      class="bg-purple-500 text-white py-2 px-4 rounded-md shadow"
+      (click)="goBack()"
+    >
+      BACK
+    </button>
+  </div>
+  <div class="bg-purple-600 h-6 rounded-t-md mt-5"></div>
+</form>

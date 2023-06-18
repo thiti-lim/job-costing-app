@@ -4,6 +4,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/components/dialog/delete-dialog/delete-dialog.component';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-customer-list',
@@ -14,7 +15,8 @@ export class CustomerListComponent {
   constructor(
     private customerService: CustomerService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
   pageTitle: string = 'customers';
   customers: Customer[] = [];
@@ -41,6 +43,6 @@ export class CustomerListComponent {
   }
 
   goBack(): void {
-    this.router.navigate(['/home']);
+    this.location.back();
   }
 }
