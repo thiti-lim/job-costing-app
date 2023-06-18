@@ -98,4 +98,8 @@ export class CustomerDetailComponent {
       this.router.navigateByUrl('/customer/list');
     }
   }
+
+  goBack(): void {
+    this.router.navigate(['/customer/list']);
+  }
 }

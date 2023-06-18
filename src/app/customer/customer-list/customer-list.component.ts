@@ -39,4 +39,8 @@ export class CustomerListComponent {
   addCustomer() {
     this.router.navigate(['/customer/new']);
   }
+
+  goBack(): void {
+    this.router.navigate(['/home']);
+  }
 }

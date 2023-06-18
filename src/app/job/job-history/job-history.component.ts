@@ -22,4 +22,8 @@ export class JobHistoryComponent {
   addJob(): void {
     this.router.navigate(['job/new']);
   }
+
+  goBack(): void {
+    this.router.navigate(['/home']);
+  }
 }

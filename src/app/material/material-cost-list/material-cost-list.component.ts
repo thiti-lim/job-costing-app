@@ -30,7 +30,6 @@ export class MaterialCostListComponent {
       this.jobId,
       this.materialId
     );
-    console.log(this.costList);
   }
 
   editCost(cost: DirectMaterialCost): void {
@@ -48,5 +47,13 @@ export class MaterialCostListComponent {
         );
       }
     });
+  }
+
+  addMaterialCost(): void {
+    this.router.navigate([this.router.url, 'new']);
+  }
+
+  goBack(): void {
+    this.router.navigate(['job', this.jobId]);
   }
 }

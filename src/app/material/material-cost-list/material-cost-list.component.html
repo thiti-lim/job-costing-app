@@ -1,8 +1,17 @@
 <page-header [pageTitle]="pageTitle"></page-header>
 <div class="my-10 mx-20">
-  <div>
-    <button class="bg-teal-500 text-white py-2 px-4 rounded-md shadow">
-      <a routerLink="/customer/new">ADD MATERIAL COST</a>
+  <div class="flex justify-between">
+    <button
+      class="bg-purple-500 text-white py-2 px-4 rounded-md shadow"
+      (click)="goBack()"
+    >
+      BACK
+    </button>
+    <button
+      class="bg-teal-500 text-white py-2 px-4 rounded-md shadow"
+      (click)="addMaterialCost()"
+    >
+      ADD MATERIAL COST
     </button>
   </div>
   <div class="mt-5">

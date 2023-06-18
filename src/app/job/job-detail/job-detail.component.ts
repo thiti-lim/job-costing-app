@@ -29,6 +29,7 @@ export class JobDetailComponent {
   toDirectMaterialCostList(material: Material): void {
     this.router.navigate([this.router.url, 'material', material.id, 'costs']);
   }
+
   toDirectLaborCostList(labor: Labor): void {
     this.router.navigate([this.router.url, 'labor', labor.id, 'costs']);
   }
@@ -44,5 +45,9 @@ export class JobDetailComponent {
   }
   toDirectLaborCostAdd(labor: Labor): void {
     this.router.navigate([this.router.url, 'labor', labor.id, 'costs', 'new']);
+  }
+
+  goBack(): void {
+    this.router.navigate(['/job/history']);
   }
 }
