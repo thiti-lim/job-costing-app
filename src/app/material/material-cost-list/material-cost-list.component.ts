@@ -26,9 +26,11 @@ export class MaterialCostListComponent {
   ) {}
 
   ngOnInit(): void {
-    this.jobId = Number(this.activatedRoute.snapshot.url[1].path);
-    this.materialId = Number(this.activatedRoute.snapshot.url[3].path);
-    this.costList = this.jobService.getDirectMaterialCosts(
+    this.jobId = Number(this.activatedRoute.snapshot.paramMap.get('jobId'));
+    this.materialId = Number(
+      this.activatedRoute.snapshot.paramMap.get('matId')
+    );
+    this.costList = this.jobService.getDirectMaterialCostList(
       this.jobId,
       this.materialId
     );

@@ -16,11 +16,13 @@ export class Job {
 
   constructor(
     id: number,
-  name: string,
+    name: string,
     customer: Customer,
     startDate: Date,
     finishDate: Date,
     overheadRate: number,
+    materials: Material[],
+    labors: Labor[],
     status: JobStatus
   ) {
     this.id = id;
@@ -29,6 +31,8 @@ export class Job {
     this.startDate = startDate;
     this.finishDate = finishDate;
     this.overheadRate = overheadRate;
+    this.materials = materials; 
+    this.labors = labors; 
     this.status = status;
   }
 }

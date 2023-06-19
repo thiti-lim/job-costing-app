@@ -21,22 +21,18 @@ export class CustomerDetailComponent {
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private routeLocation: Location,
+    private routeLocation: Location
   ) {}
 
   ngOnInit() {
-    const currentRoute = this.activatedRoute.snapshot;
-    if (currentRoute.url.join('/') === 'customer/new') {
+    const id = this.activatedRoute.snapshot.paramMap.get('customerId');
+    if (id == 'new') {
       this.isNewCustomer = true;
       this.pageTitle = 'new customer';
     } else {
       this.isNewCustomer = false;
       this.pageTitle = 'update customer';
-      const id = Number(
-        this.activatedRoute.snapshot.paramMap.get('customerId')
-      );
-      this.customer = this.customerService.getCustomerById(id);
-      console.log(this.customer);
+      this.customer = this.customerService.getCustomerById(Number(id));
     }
     // Access the current route or perform any desired action
     this.customerForm = this.formBuilder.group({

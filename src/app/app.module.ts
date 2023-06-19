@@ -18,9 +18,9 @@ import { MaterialCostListComponent } from './material/material-cost-list/materia
 import { MaterialCostDetailComponent } from './material/material-cost-detail/material-cost-detail.component';
 import { LaborCostListComponent } from './labor/labor-cost-list/labor-cost-list.component';
 import { LaborCostDetailComponent } from './labor/labor-cost-detail/labor-cost-detail.component';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
   { path: 'job/history', component: JobHistoryComponent },
   { path: 'job', redirectTo: 'job/history', pathMatch: 'full' },
   { path: 'job/new', component: AddJobComponent },
@@ -49,7 +49,7 @@ const routes: Routes = [
   { path: 'customer/list', component: CustomerListComponent },
   { path: 'customer/list/:customerId', component: CustomerDetailComponent },
   { path: 'customer/new', component: CustomerDetailComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/job/history', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -75,7 +75,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

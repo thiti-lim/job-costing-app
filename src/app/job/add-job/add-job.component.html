@@ -1,12 +1,400 @@
 <page-header [pageTitle]="pageTitle"></page-header>
-<form [formGroup]="jobForm" (ngSubmit)="onSubmit()" class="my-10 mx-72">
-  <div class="flex justify-between">
-    <button
-      class="bg-purple-500 text-white py-2 px-4 rounded-md shadow"
-      (click)="goBack()"
-    >
-      BACK
-    </button>
-  </div>
-  <div class="bg-purple-600 h-6 rounded-t-md mt-5"></div>
-</form>
+<div class="flex justify-center">
+  <form
+    [formGroup]="jobForm"
+    (ngSubmit)="onSubmit()"
+    class="my-10 w-5/6 min-w-[800px] mx-20"
+  >
+    <div class="flex justify-between">
+      <button
+        class="bg-purple-500 text-white py-2 px-4 rounded-md shadow"
+        (click)="goBack()"
+      >
+        BACK
+      </button>
+    </div>
+    <div class="bg-purple-600 h-6 rounded-t-md mt-5"></div>
+    <div class="bg-white py-8 px-10 rounded-b-md mb-6">
+      <div class="mb-5 text-xl font-bold text-gray-900">Basic Info</div>
+      <div class="flex">
+        <div class="w-3/4 pr-4 mb-5">
+          <label for="name" class="block mb-2 text-sm font-medium text-gray-900"
+            >Job Name / Number</label
+          >
+          <input
+            type="text"
+            formControlName="name"
+            id="name"
+            class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+            placeholder="Enter customer name"
+            required
+          />
+          <div *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+            <div
+              *ngIf="name?.errors?.['required'] || name?.errors?.['whitespace']"
+              class="text-red-500 text-sm mt-1"
+            >
+              Job name is required
+            </div>
+          </div>
+        </div>
+        <div class="relative text-left w-1/4">
+          <label for="name" class="block mb-2 text-sm font-medium text-gray-900"
+            >Customer</label
+          >
+          <div>
+            <button
+              type="button"
+              class="inline-flex justify-center items-center bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 w-full p-2.5"
+              id="dropdown-menu"
+              aria-haspopup="true"
+              aria-expanded="true"
+              (click)="toggleCustomerDropdown()"
+            >
+              {{ jobForm.get('customer')?.value.name || 'Select a customer' }}
+              <svg
+                class="-mr-1 ml-2 h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 12a1 1 0 01-.707-.293l-3-3a1 1 0 011.414-1.414L10 9.586l2.293-2.293a1 1 0 011.414 1.414l-3 3A1 1 0 0110 12z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            class="origin-top-left w-full absolute left-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="dropdown-menu"
+            *ngIf="isCustomerDropdownOpen"
+          >
+            <div class="py-1" role="none">
+              <button
+                href="#"
+                class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 w-full text-left"
+                role="menuitem"
+              >
+                Select a customer
+              </button>
+              <div class="border-t border-gray-200"></div>
+              <ng-container *ngFor="let customer of customers">
+                <button
+                  class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 w-full text-left"
+                  (click)="selectCustomer(customer)"
+                  role="menuitem"
+                >
+                  {{ customer.name }}
+                </button>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="customer?.invalid && customer?.touched">
+            <div
+              *ngIf="customer?.errors?.['required']"
+              class="text-red-500 text-sm mt-1"
+            >
+              Customer is required
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex mb-5">
+        <div class="w-1/2 mr-2">
+          <label
+            for="startDate"
+            class="block mb-2 text-sm font-medium text-gray-900"
+            >Start Date</label
+          >
+          <input
+            type="text"
+            formControlName="startDate"
+            id="startDate"
+            [matDatepicker]="startDatePicker"
+            (focus)="startDatePicker.open()"
+            class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+            placeholder="Enter start date"
+            required
+          />
+          <mat-datepicker #startDatePicker class="fixed"></mat-datepicker>
+          <div
+            *ngIf="
+              startDate?.invalid && (startDate?.dirty || startDate?.touched)
+            "
+          >
+            <div
+              *ngIf="startDate?.errors?.['date']"
+              class="text-red-500 text-sm mt-1"
+            >
+              Invalid date
+            </div>
+          </div>
+        </div>
+        <div class="w-1/2 ml-2">
+          <label
+            for="phoneNumber"
+            class="block mb-2 text-sm font-medium text-gray-900"
+            >Finish Date</label
+          >
+          <input
+            type="text"
+            formControlName="finishDate"
+            id="finishDate"
+            [matDatepicker]="finishDatePicker"
+            (focus)="finishDatePicker.open()"
+            class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+            placeholder="Enter finish date"
+            required
+          />
+          <mat-datepicker #finishDatePicker class="fixed"></mat-datepicker>
+
+          <div
+            *ngIf="
+              finishDate?.invalid && (finishDate?.dirty || finishDate?.touched)
+            "
+          >
+            <div
+              *ngIf="finishDate?.errors?.['date']"
+              class="text-red-500 text-sm mt-1"
+            >
+              Invalid date
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-600 h-3 rounded-t-md"></div>
+    <div class="bg-white py-8 px-10 rounded-b-md mb-6">
+      <div class="mb-5 text-xl font-bold text-gray-900">Materials</div>
+      <div formArrayName="materials">
+        <div
+          *ngFor="let matForm of materials.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <div class="flex mb-6 items-end">
+            <div class="mr-5 w-1/2">
+              <label
+                for="materialName"
+                class="mb-2 text-sm font-medium text-gray-900 block"
+                >Material Name</label
+              >
+              <input
+                type="text"
+                formControlName="materialName"
+                id="materialName"
+                class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block p-2.5 w-full"
+                placeholder="Enter customer name"
+                required
+              />
+            </div>
+            <div class="mr-5">
+              <label
+                for="estimatedUnits"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Estimated Units</label
+              >
+              <input
+                type="text"
+                formControlName="estimatedUnits"
+                id="estimatedUnits"
+                class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block p-2.5"
+                placeholder="Enter customer name"
+                required
+              />
+            </div>
+            <div class="mr-8">
+              <label
+                for="name"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Estimated Total Cost</label
+              >
+              <input
+                type="text"
+                formControlName="estimatedTotalCost"
+                id="estimatedTotalCost"
+                class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block p-2.5"
+                placeholder="Enter customer name"
+                required
+              />
+            </div>
+            <div class="mb-1">
+              <button (click)="removeMaterial(i)">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6 text-red-500"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="materials?.invalid && materials?.touched">
+          <div
+            *ngIf="materials?.errors?.['formArrayEmpty']"
+            class="text-red-500 text-sm mt-1 mb-2"
+          >
+            Please add materials
+          </div>
+        </div>
+        <div>
+          <button
+            class="bg-teal-500 py-2 px-3 rounded-md text-white flex w-44 justify-center"
+            (click)="addMaterial()"
+          >
+            <div class="mr-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <div>ADD MATERIAL</div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-600 h-3 rounded-t-md"></div>
+    <div class="bg-white py-8 px-10 rounded-b-md mb-6">
+      <div class="mb-5 text-xl font-bold text-gray-900">Labors</div>
+      <div formArrayName="labors">
+        <div
+          *ngFor="let labForm of labors.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <div class="flex mb-6 items-end">
+            <div class="mr-5 w-1/2">
+              <label
+                for="laborName"
+                class="mb-2 text-sm font-medium text-gray-900 block"
+                >Labor Name</label
+              >
+              <input
+                type="text"
+                formControlName="laborName"
+                id="laborName"
+                class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block p-2.5 w-full"
+                placeholder="Enter customer name"
+                required
+              />
+            </div>
+            <div class="mr-5">
+              <label
+                for="estimatedUnits"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Estimated Hours</label
+              >
+              <input
+                type="text"
+                formControlName="estimatedHours"
+                id="estimatedHours"
+                class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block p-2.5"
+                placeholder="Enter customer name"
+                required
+              />
+            </div>
+            <div class="mr-8">
+              <label
+                for="name"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Estimated Total Cost</label
+              >
+              <input
+                type="text"
+                formControlName="estimatedTotalCost"
+                id="estimatedTotalCost"
+                class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block p-2.5"
+                placeholder="Enter customer name"
+                required
+              />
+            </div>
+            <div class="mb-1">
+              <button (click)="removeLabor(i)">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6 text-red-500"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="labors?.invalid && labors?.touched">
+          <div
+            *ngIf="labors?.errors?.['formArrayEmpty']"
+            class="text-red-500 text-sm mt-1 mb-2"
+          >
+            Please add labors
+          </div>
+        </div>
+        <div>
+          <button
+            class="bg-teal-500 py-2 px-3 rounded-md text-white flex w-44 justify-center"
+            (click)="addLabor()"
+          >
+            <div class="mr-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <div>ADD LABOR</div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-600 h-3 rounded-t-md"></div>
+    <div class="bg-white py-8 px-10 rounded-b-md mb-6">
+      <div class="mb-5 text-xl font-bold text-gray-900">Overhead</div>
+    </div>
+    <div class="flex justify-end">
+      <button
+        type="submit"
+        onsubmit="onSubmit()"
+        class="bg-purple-700 text-white py-2 px-4 rounded-md shadow hover:bg-purple-900 disabled:bg-gray-300 disabled:cursor-not-allowed"
+      >
+        ADD JOB
+      </button>
+    </div>
+  </form>
+</div>

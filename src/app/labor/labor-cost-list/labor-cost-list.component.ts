@@ -26,9 +26,9 @@ export class LaborCostListComponent {
   ) {}
 
   ngOnInit(): void {
-    this.jobId = Number(this.activatedRoute.snapshot.url[1].path);
-    this.laborId = Number(this.activatedRoute.snapshot.url[3].path);
-    this.costList = this.jobService.getDirectLaborCosts(
+    this.jobId = Number(this.activatedRoute.snapshot.paramMap.get('jobId'));
+    this.laborId = Number(this.activatedRoute.snapshot.paramMap.get('labId'));
+    this.costList = this.jobService.getDirectLaborCostList(
       this.jobId,
       this.laborId
     );

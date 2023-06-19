@@ -1,7 +1,9 @@
+import { JobService } from 'src/app/job/job.service';
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DirectMaterialCost } from 'src/app/models/direct-material-cost.model';
 
 @Component({
   selector: 'app-material-cost-detail',
@@ -11,12 +13,28 @@ import { Router } from '@angular/router';
 export class MaterialCostDetailComponent {
   pageTitle: string = 'Add Material Cost';
   costForm!: FormGroup;
+  isNewCost!: boolean;
+  cost!: DirectMaterialCost;
 
-  constructor(private router: Router, private location: Location) {}
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private location: Location,
+    private jobService: JobService
+  ) {}
 
   ngOnInit(): void {
     console.log(this.router.url);
     this.costForm = new FormGroup({});
+    const id = this.activatedRoute.snapshot.paramMap.get('dmId');
+    console.log(id);
+    if (id == 'new') {
+      this.isNewCost = true;
+      this.pageTitle = 'new material cost';
+    } else {
+      this.isNewCost = false;
+      this.pageTitle = 'update material cost';
+    }
   }
 
   onSubmit(): void {

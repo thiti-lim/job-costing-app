@@ -1,5 +1,4 @@
 MVP TODOS: 
-Add stats to dashboard 
 Add Job page 
 Add / Edit material cost 
 Add / Edit labor cost 

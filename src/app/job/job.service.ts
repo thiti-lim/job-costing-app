@@ -1,7 +1,7 @@
+import { DirectLaborCost } from 'src/app/models/direct-labor-cost.model';
 import { CustomerService } from './../customer/customer.service';
 import { Injectable } from '@angular/core';
 import { Customer } from '../models/customer.model';
-import { DirectLaborCost } from '../models/direct-labor-cost.model';
 import { DirectMaterialCost } from '../models/direct-material-cost.model';
 import { Job } from '../models/job.model';
 import { Labor } from '../models/labor.model';
@@ -25,7 +25,7 @@ export class JobService {
   getJobById(id: number): Job | undefined {
     return this.jobs.find((job) => job.id === id);
   }
-  getDirectMaterialCosts(
+  getDirectMaterialCostList(
     jobId: number,
     materialId: number
   ): DirectMaterialCost[] {
@@ -39,7 +39,7 @@ export class JobService {
     return [];
   }
 
-  getDirectLaborCosts(jobId: number, laborId: number): DirectLaborCost[] {
+  getDirectLaborCostList(jobId: number, laborId: number): DirectLaborCost[] {
     const job = this.getJobById(jobId);
     if (job) {
       const labor = job.labors.find((lab) => lab.id === laborId);
@@ -48,6 +48,23 @@ export class JobService {
       }
     }
     return [];
+  }
+
+  getDirectMaterialCost(
+    jobId: number,
+    materialId: number,
+    directMaterialCostId: number
+  ): DirectMaterialCost | undefined {
+    const job = this.getJobById(jobId);
+    if (job) {
+      const material = job.materials.find((mat) => mat.id === materialId);
+      if (material) {
+        return material.directMaterialCosts.find(
+          (cost) => cost.id === directMaterialCostId
+        );
+      }
+    }
+    return undefined;
   }
 
   removeDirectMaterialCost(
@@ -97,14 +114,14 @@ export class JobService {
       new Date(),
       new Date(),
       0.1,
+      [
+        new Material(1, 'Wood', 220, 7000),
+        new Material(2, 'Material 2', 92, 600),
+      ],
+
+      [new Labor(1, 'Labor 1', 500, 10000), new Labor(2, 'Labor 2', 20, 200)],
       JobStatus.InProgress
     );
-    const material1 = new Material(1, 'Wood', 220, 7000);
-    const material2 = new Material(2, 'Material 2', 92, 600);
-    job1.materials.push(material1, material2);
-    const labor1 = new Labor(1, 'Labor 1', 10, 100);
-    const labor2 = new Labor(2, 'Labor 2', 20, 200);
-    job1.labors.push(labor1, labor2);
 
     const job2 = new Job(
       2,
@@ -113,12 +130,10 @@ export class JobService {
       new Date(),
       new Date(),
       0.2,
+      [new Material(3, 'Material 3', 30, 300)],
+      [new Labor(3, 'Labor 3', 30, 300)],
       JobStatus.Completed
     );
-    const material3 = new Material(3, 'Material 3', 30, 300);
-    job2.materials.push(material3);
-    const labor3 = new Labor(3, 'Labor 3', 30, 300);
-    job2.labors.push(labor3);
 
     const job3 = new Job(
       3,
@@ -127,17 +142,16 @@ export class JobService {
       new Date(),
       new Date(),
       0.15,
+      [
+        new Material(4, 'Material 4', 40, 400),
+        new Material(5, 'Material 5', 50, 500),
+      ],
+      [new Labor(4, 'Labor 4', 40, 400), new Labor(5, 'Labor 5', 50, 500)],
       JobStatus.InProgress
     );
-    const material4 = new Material(4, 'Material 4', 40, 400);
-    const material5 = new Material(5, 'Material 5', 50, 500);
-    job3.materials.push(material4, material5);
-    const labor4 = new Labor(4, 'Labor 4', 40, 400);
-    const labor5 = new Labor(5, 'Labor 5', 50, 500);
-    job3.labors.push(labor4, labor5);
 
     // Assign direct material costs to materials
-    material1.directMaterialCosts.push(
+    job1.materials[0].directMaterialCosts.push(
       new DirectMaterialCost(
         1,
         'DM Wood Cost 1',
@@ -184,7 +198,7 @@ export class JobService {
         new Date()
       )
     );
-    material2.directMaterialCosts.push(
+    job1.materials[0].directMaterialCosts.push(
       new DirectMaterialCost(
         2,
         'Direct Material Cost 2',
@@ -195,45 +209,12 @@ export class JobService {
         new Date()
       )
     );
-    material3.directMaterialCosts.push(
-      new DirectMaterialCost(
-        3,
-        'Direct Material Cost 3',
-        15,
-        8,
-        'Seller 1',
-        'DM-003',
-        new Date()
-      )
-    );
-    material4.directMaterialCosts.push(
-      new DirectMaterialCost(
-        4,
-        'Direct Material Cost 4',
-        20,
-        10,
-        'Seller 1',
-        'DM-004',
-        new Date()
-      )
-    );
-    material5.directMaterialCosts.push(
-      new DirectMaterialCost(
-        5,
-        'Direct Material Cost 5',
-        30,
-        15,
-        'Seller 2',
-        'DM-005',
-        new Date()
-      )
-    );
 
     // Assign direct labor costs to labors
-    labor1.directLaborCosts.push(
+    job1.labors[0].directLaborCosts.push(
       new DirectLaborCost(1, 'Direct Labor Cost 1', 'DL-001', 12, 8, new Date())
     );
-    labor2.directLaborCosts.push(
+    job1.labors[0].directLaborCosts.push(
       new DirectLaborCost(
         2,
         'Direct Labor Cost 2',
@@ -243,13 +224,13 @@ export class JobService {
         new Date()
       )
     );
-    labor3.directLaborCosts.push(
+    job1.labors[0].directLaborCosts.push(
       new DirectLaborCost(3, 'Direct Labor Cost 3', 'DL-003', 10, 6, new Date())
     );
-    labor4.directLaborCosts.push(
+    job1.labors[0].directLaborCosts.push(
       new DirectLaborCost(4, 'Direct Labor Cost 4', 'DL-004', 18, 8, new Date())
     );
-    labor5.directLaborCosts.push(
+    job1.labors[0].directLaborCosts.push(
       new DirectLaborCost(
         5,
         'Direct Labor Cost 5',
