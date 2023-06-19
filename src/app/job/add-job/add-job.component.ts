@@ -96,8 +96,8 @@ export class AddJobComponent {
   addMaterial() {
     const matForm = this.formBuilder.group({
       materialName: ['', Validators.required],
-      estimatedUnits: ['', Validators.required],
-      estimatedTotalCost: ['', Validators.required],
+      estimatedUnits: ['', [Validators.required, Validators.min(0)]],
+      estimatedTotalCost: ['', [Validators.required, Validators.min(0)]],
     });
     this.materials.push(matForm);
   }
@@ -105,13 +105,15 @@ export class AddJobComponent {
   addLabor() {
     const labForm = this.formBuilder.group({
       laborName: ['', Validators.required],
-      estimatedHours: ['', Validators.required],
-      estimatedTotalCost: ['', Validators.required],
+      estimatedHours: ['', [Validators.required, Validators.min(0)]],
+      estimatedTotalCost: ['', [Validators.required, Validators.min(0)]],
     });
     this.labors.push(labForm);
   }
 
   removeMaterial(matIndex: number) {
+    const meme = this.materials.at(matIndex) as FormControl;
+    console.log(meme.get('materialName'));
     this.materials.removeAt(matIndex);
   }
 
