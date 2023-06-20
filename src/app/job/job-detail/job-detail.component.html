@@ -73,8 +73,10 @@
                   <div
                     class="bg-blue-600 h-1 rounded-full"
                     [style.width.%]="
-                      (material.actualTotalCost / material.estimatedTotalCost) *
-                      100
+                      getProgressBarWidth(
+                        material.actualUnits,
+                        material.estimatedUnits
+                      )
                     "
                   ></div>
                 </div>
@@ -94,7 +96,10 @@
                   <div
                     class="bg-blue-600 h-1 rounded-full"
                     [style.width.%]="
-                      (material.actualUnits / material.estimatedUnits) * 100
+                      getProgressBarWidth(
+                        material.actualTotalCost,
+                        material.estimatedTotalCost
+                      )
                     "
                   ></div>
                 </div>
@@ -184,7 +189,10 @@
                   <div
                     class="bg-blue-600 h-1 rounded-full"
                     [style.width.%]="
-                      (labor.actualTotalCost / labor.estimatedTotalCost) * 100
+                      getProgressBarWidth(
+                        labor.actualTotalCost,
+                        labor.estimatedTotalCost
+                      )
                     "
                   ></div>
                 </div>
@@ -203,7 +211,10 @@
                   <div
                     class="bg-blue-600 h-1 rounded-full"
                     [style.width.%]="
-                      (labor.actualHours / labor.estimatedHours) * 100
+                      getProgressBarWidth(
+                        labor.actualHours,
+                        labor.estimatedHours
+                      )
                     "
                   ></div>
                 </div>

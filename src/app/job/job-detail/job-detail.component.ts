@@ -48,6 +48,10 @@ export class JobDetailComponent {
   toDirectLaborCostAdd(labor: Labor): void {
     this.router.navigate([this.router.url, 'labor', labor.id, 'costs', 'new']);
   }
+
+  getProgressBarWidth(actual: number, estimate: number) {
+    return Math.min(100, (actual / estimate) * 100);
+  }
   goBack(): void {
     this.location.back();
   }

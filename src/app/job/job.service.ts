@@ -183,6 +183,48 @@ export class JobService {
     });
     return maxLaborId + 1;
   }
+  addDirectMaterialCost(
+    jobId: number,
+    materialId: number,
+    name: string,
+    refNo: string,
+    seller: string,
+    units: number,
+    costPerUnit: number,
+    date: Date
+  ): void {
+    const job = this.getJobById(jobId);
+    if (job) {
+      const material = job.materials.find((mat) => mat.id === materialId);
+      if (material) {
+        const directMaterialCostId = this.getNextDirectMaterialCostId(
+          material.directMaterialCosts
+        );
+        const directMaterialCost = new DirectMaterialCost(
+          directMaterialCostId,
+          name,
+          units,
+          costPerUnit,
+          seller,
+          refNo,
+          date
+        );
+        material.directMaterialCosts.push(directMaterialCost);
+      }
+    }
+  }
+
+  private getNextDirectMaterialCostId(
+    directMaterialCosts: DirectMaterialCost[]
+  ): number {
+    const lastDirectMaterialCost =
+      directMaterialCosts[directMaterialCosts.length - 1];
+    const lastDirectMaterialCostId = lastDirectMaterialCost
+      ? lastDirectMaterialCost.id
+      : 0;
+    return lastDirectMaterialCostId + 1;
+  }
+
   createMockJobs(): void {
     // Create jobs using mock data
     const job1 = new Job(

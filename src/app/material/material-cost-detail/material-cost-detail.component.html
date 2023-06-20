@@ -1,5 +1,9 @@
 <page-header [pageTitle]="pageTitle"></page-header>
-<form [formGroup]="costForm" (ngSubmit)="onSubmit()" class="my-10 mx-72">
+<form
+  [formGroup]="costForm"
+  (ngSubmit)="onSubmit()"
+  class="my-10 mx-72 min-w-[500px]"
+>
   <div class="flex justify-between">
     <button
       class="bg-purple-500 text-white py-2 px-4 rounded-md shadow"
@@ -12,6 +16,150 @@
   <div class="bg-white py-8 px-10 rounded-b-md">
     <div class="mb-5 text-xl font-bold text-gray-900">
       {{ isNewCost ? 'Add' : 'Edit' }} Material Cost
+    </div>
+    <div class="mb-5">
+      <label for="name" class="block mb-2 text-sm font-medium text-gray-900"
+        >Material Cost Name</label
+      >
+      <input
+        type="text"
+        formControlName="name"
+        id="name"
+        class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+        placeholder="Enter cost name"
+        required
+      />
+      <div *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+        <div
+          *ngIf="name?.errors?.['required'] || name?.errors?.['whitespace']"
+          class="text-red-500 text-sm mt-1"
+        >
+          Name is required.
+        </div>
+      </div>
+    </div>
+    <div class="mb-5">
+      <label for="refNo" class="block mb-2 text-sm font-medium text-gray-900"
+        >Reference Number</label
+      >
+      <input
+        type="text"
+        formControlName="refNo"
+        id="refNo"
+        class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+        placeholder="Enter Reference Number"
+        required
+      />
+      <div *ngIf="refNo?.invalid && (refNo?.dirty || refNo?.touched)">
+        <div
+          *ngIf="refNo?.errors?.['required'] || refNo?.errors?.['whitespace']"
+          class="text-red-500 text-sm mt-1"
+        >
+          Reference Number is required.
+        </div>
+      </div>
+    </div>
+    <div class="mb-5">
+      <label for="seller" class="block mb-2 text-sm font-medium text-gray-900"
+        >Seller</label
+      >
+      <input
+        type="text"
+        formControlName="seller"
+        id="seller"
+        class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+        placeholder="Enter seller"
+        required
+      />
+      <div *ngIf="seller?.invalid && (seller?.dirty || seller?.touched)">
+        <div
+          *ngIf="seller?.errors?.['required'] || seller?.errors?.['whitespace']"
+          class="text-red-500 text-sm mt-1"
+        >
+          Seller is required.
+        </div>
+      </div>
+    </div>
+    <div class="flex mb-5">
+      <div class="w-1/2 mr-2">
+        <label for="units" class="block mb-2 text-sm font-medium text-gray-900"
+          >Units</label
+        >
+        <input
+          type="text"
+          formControlName="units"
+          id="units"
+          class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+          placeholder="Enter number of units"
+          required
+        />
+        <div *ngIf="units?.invalid && (units?.dirty || units?.touched)">
+          <div
+            *ngIf="units?.errors?.['required'] || units?.errors?.['whitespace']"
+            class="text-red-500 text-sm mt-1"
+          >
+            Units is required.
+          </div>
+        </div>
+      </div>
+      <div class="w-1/2 ml-2">
+        <label
+          for="costPerUnit"
+          class="block mb-2 text-sm font-medium text-gray-900"
+          >Cost Per Unit</label
+        >
+        <input
+          type="text"
+          formControlName="costPerUnit"
+          id="costPerUnit"
+          class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+          placeholder="Enter cost per unit"
+          required
+        />
+        <div
+          *ngIf="
+            costPerUnit?.invalid && (costPerUnit?.dirty || costPerUnit?.touched)
+          "
+        >
+          <div
+            *ngIf="costPerUnit?.errors?.['required'] || costPerUnit?.errors?.['whitespace']"
+            class="text-red-500 text-sm mt-1"
+          >
+            Cost Per Unit is required.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-7 w-28">
+      <label for="date" class="block mb-2 text-sm font-medium text-gray-900"
+        >Date</label
+      >
+      <input
+        type="text"
+        formControlName="date"
+        id="date"
+        [matDatepicker]="datePicker"
+        (focus)="datePicker.open()"
+        class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+        placeholder="Enter date"
+        required
+      />
+      <mat-datepicker #datePicker class="fixed"></mat-datepicker>
+      <div *ngIf="date?.invalid && (date?.dirty || date?.touched)">
+        <div *ngIf="date?.errors?.['date']" class="text-red-500 text-sm mt-1">
+          Invalid date
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-end">
+      <button
+        type="submit"
+        class="bg-purple-700 text-white py-2 px-4 rounded-md shadow hover:bg-purple-900 disabled:bg-gray-300 disabled:cursor-not-allowed"
+        onsubmit='onSubmit()'
+      >
+        {{ isNewCost ? 'ADD' : 'EDIT' }}
+      </button>
     </div>
   </div>
 </form>
