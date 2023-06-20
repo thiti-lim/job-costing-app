@@ -1,3 +1,4 @@
+RIGHT NOW FIX EDIT MATERIAL COST BUG 
 MVP TODOS: 
 Add / Edit material cost 
 Add / Edit labor cost 

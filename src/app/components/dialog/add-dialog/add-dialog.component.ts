@@ -7,7 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./add-dialog.component.css'],
 })
 export class AddDialogComponent {
-  @Output() deleteConfirmed = new EventEmitter<boolean>();
+  @Output() addConfirmed = new EventEmitter<boolean>();
 
   constructor(
     public dialogRef: MatDialogRef<AddDialogComponent>,

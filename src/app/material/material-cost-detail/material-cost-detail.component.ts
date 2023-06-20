@@ -11,6 +11,7 @@ import {
 } from 'src/app/helpers/validators';
 import { MatDialog } from '@angular/material/dialog';
 import { AddDialogComponent } from 'src/app/components/dialog/add-dialog/add-dialog.component';
+import { EditDialogComponent } from 'src/app/components/dialog/edit-dialog/edit-dialog.component';
 
 @Component({
   selector: 'app-material-cost-detail',
@@ -23,7 +24,7 @@ export class MaterialCostDetailComponent {
   isNewCost!: boolean;
   jobId!: number;
   matId!: number;
-  cost!: DirectMaterialCost;
+  cost?: DirectMaterialCost;
 
   constructor(
     private router: Router,
@@ -44,6 +45,11 @@ export class MaterialCostDetailComponent {
     } else {
       this.isNewCost = false;
       this.pageTitle = 'update material cost';
+      this.cost = this.jobService.getDirectMaterialCostById(
+        this.jobId,
+        this.matId,
+        Number(id)
+      );
     }
     this.costForm = this.formBuilder.group({
       name: [
@@ -59,11 +65,11 @@ export class MaterialCostDetailComponent {
         [Validators.required, whitespaceValidator()],
       ],
       units: [
-        this.cost?.units ?? '',
+        this.cost?.units.toString() ?? '',
         [Validators.required, whitespaceValidator(), positiveNumberValidator()],
       ],
       costPerUnit: [
-        this.cost?.costPerUnit ?? '',
+        this.cost?.costPerUnit.toString() ?? '',
         [Validators.required, whitespaceValidator(), positiveNumberValidator()],
       ],
       date: [this.cost?.date ?? '', [dateValidator()]],
@@ -90,23 +96,40 @@ export class MaterialCostDetailComponent {
   }
 
   onSubmit(): void {
+    console.log(this.seller?.valid);
     if (this.costForm.invalid) {
+      this.costForm.markAllAsTouched();
       return;
     }
-    const dialogRef = this.dialog.open(AddDialogComponent);
+    const dialogRef = this.dialog.open(EditDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.jobService.addDirectMaterialCost(
-          this.jobId,
-          this.matId,
-          this.name!.value,
-          this.refNo!.value,
-          this.seller!.value,
-          this.units!.value,
-          this.costPerUnit!.value,
-          this.date!.value
-        );
-        this.location.back();
+        if (this.isNewCost) {
+          this.jobService.addDirectMaterialCost(
+            this.jobId,
+            this.matId,
+            this.name!.value,
+            this.refNo!.value,
+            this.seller!.value,
+            this.units!.value,
+            this.costPerUnit!.value,
+            this.date!.value
+          );
+          this.location.back();
+        } else {
+          this.jobService.updateDirectMaterialCost(
+            this.jobId,
+            this.matId,
+            this.cost!.id,
+            this.name!.value,
+            this.refNo!.value,
+            this.seller!.value,
+            this.units!.value,
+            this.costPerUnit!.value,
+            this.date!.value
+          );
+          this.location.back();
+        }
       }
     });
   }

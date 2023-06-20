@@ -95,10 +95,16 @@
         />
         <div *ngIf="units?.invalid && (units?.dirty || units?.touched)">
           <div
-            *ngIf="units?.errors?.['required'] || units?.errors?.['whitespace']"
+            *ngIf="units?.errors?.['required']"
             class="text-red-500 text-sm mt-1"
           >
             Units is required.
+          </div>
+          <div
+            *ngIf="units?.errors?.['whitespace'] || units?.errors?.['positiveNumber']"
+            class="text-red-500 text-sm mt-1"
+          >
+            Units is invalid.
           </div>
         </div>
       </div>
@@ -122,10 +128,17 @@
           "
         >
           <div
-            *ngIf="costPerUnit?.errors?.['required'] || costPerUnit?.errors?.['whitespace']"
+            *ngIf="costPerUnit?.errors?.['required']"
             class="text-red-500 text-sm mt-1"
           >
             Cost Per Unit is required.
+          </div>
+
+          <div
+            *ngIf="costPerUnit?.errors?.['whitespace'] || costPerUnit?.errors?.['positiveNumber']"
+            class="text-red-500 text-sm mt-1"
+          >
+            Cost Per Unit is invalid.
           </div>
         </div>
       </div>
@@ -156,7 +169,7 @@
       <button
         type="submit"
         class="bg-purple-700 text-white py-2 px-4 rounded-md shadow hover:bg-purple-900 disabled:bg-gray-300 disabled:cursor-not-allowed"
-        onsubmit='onSubmit()'
+        onsubmit="onSubmit()"
       >
         {{ isNewCost ? 'ADD' : 'EDIT' }}
       </button>

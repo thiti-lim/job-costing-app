@@ -50,23 +50,6 @@ export class JobService {
     return [];
   }
 
-  getDirectMaterialCost(
-    jobId: number,
-    materialId: number,
-    directMaterialCostId: number
-  ): DirectMaterialCost | undefined {
-    const job = this.getJobById(jobId);
-    if (job) {
-      const material = job.materials.find((mat) => mat.id === materialId);
-      if (material) {
-        return material.directMaterialCosts.find(
-          (cost) => cost.id === directMaterialCostId
-        );
-      }
-    }
-    return undefined;
-  }
-
   removeDirectMaterialCost(
     jobId: number,
     materialId: number,
@@ -223,6 +206,115 @@ export class JobService {
       ? lastDirectMaterialCost.id
       : 0;
     return lastDirectMaterialCostId + 1;
+  }
+
+  addDirectLaborCost(
+    jobId: number,
+    laborId: number,
+    name: string,
+    refNo: string,
+    hours: number,
+    costPerHour: number,
+    date: Date
+  ): void {
+    const job = this.getJobById(jobId);
+    if (job) {
+      const labor = job.labors.find((lab) => lab.id === laborId);
+      if (labor) {
+        const directLaborCostId = this.getNextDirectLaborCostId(
+          labor.directLaborCosts
+        );
+        const directLaborCost = new DirectLaborCost(
+          directLaborCostId,
+          name,
+          refNo,
+          hours,
+          costPerHour,
+          date
+        );
+        labor.directLaborCosts.push(directLaborCost);
+      }
+    }
+  }
+
+  private getNextDirectLaborCostId(
+    directLaborCosts: DirectLaborCost[]
+  ): number {
+    const lastDirectLaborCost = directLaborCosts[directLaborCosts.length - 1];
+    const lastDirectLaborCostId = lastDirectLaborCost
+      ? lastDirectLaborCost.id
+      : 0;
+    return lastDirectLaborCostId + 1;
+  }
+
+  getDirectMaterialCostById(
+    jobId: number,
+    materialId: number,
+    costId: number
+  ): DirectMaterialCost | undefined {
+    const job = this.getJobById(jobId);
+    if (job) {
+      const material = job.materials.find((mat) => mat.id === materialId);
+      if (material) {
+        return material.directMaterialCosts.find((cost) => cost.id === costId);
+      }
+    }
+    return undefined;
+  }
+
+  getDirectLaborCostById(
+    jobId: number,
+    laborId: number,
+    costId: number
+  ): DirectLaborCost | undefined {
+    const job = this.getJobById(jobId);
+    if (job) {
+      const labor = job.labors.find((lab) => lab.id === laborId);
+      if (labor) {
+        return labor.directLaborCosts.find((cost) => cost.id === costId);
+      }
+    }
+    return undefined;
+  }
+
+  updateDirectMaterialCost(
+    jobId: number,
+    materialId: number,
+    costId: number,
+    name: string,
+    refNo: string,
+    seller: string, 
+    units: number,
+    costPerUnit: number,
+    date: Date
+  ): void {
+    const cost = this.getDirectMaterialCostById(jobId, materialId, costId);
+    if (cost) {
+      cost.name = name;
+      cost.refNo = refNo;
+      cost.units = units;
+      cost.seller = seller; 
+      cost.costPerUnit = costPerUnit;
+      cost.date = date;
+    }
+  }
+
+  updateDirectLaborCost(
+    jobId: number,
+    laborId: number,
+    costId: number,
+    name: string,
+    hours: number,
+    costPerHour: number,
+    date: Date
+  ): void {
+    const cost = this.getDirectLaborCostById(jobId, laborId, costId);
+    if (cost) {
+      cost.name = name;
+      cost.hours = hours;
+      cost.costPerHour = costPerHour;
+      cost.date = date;
+    }
   }
 
   createMockJobs(): void {

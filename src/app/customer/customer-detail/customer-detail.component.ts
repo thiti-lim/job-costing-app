@@ -75,6 +75,7 @@ export class CustomerDetailComponent {
 
   onSubmit() {
     if (this.customerForm.invalid) {
+      this.customerForm.markAllAsTouched();
       return;
     }
     if (this.isNewCustomer) {
