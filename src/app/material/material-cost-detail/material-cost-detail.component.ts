@@ -24,10 +24,8 @@ export class MaterialCostDetailComponent {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.router.url);
     this.costForm = new FormGroup({});
     const id = this.activatedRoute.snapshot.paramMap.get('dmId');
-    console.log(id);
     if (id == 'new') {
       this.isNewCost = true;
       this.pageTitle = 'new material cost';

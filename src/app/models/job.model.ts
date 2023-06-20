@@ -1,7 +1,6 @@
 import { Material } from './material.model';
 import { Labor } from './labor.model';
 import { Customer } from './customer.model';
-import { JobStatus } from './enums/job-status.enum';
 
 export class Job {
   id: number;
@@ -12,7 +11,6 @@ export class Job {
   materials: Material[] = [];
   labors: Labor[] = [];
   overheadRate: number;
-  status: JobStatus;
 
   constructor(
     id: number,
@@ -22,8 +20,7 @@ export class Job {
     finishDate: Date,
     overheadRate: number,
     materials: Material[],
-    labors: Labor[],
-    status: JobStatus
+    labors: Labor[]
   ) {
     this.id = id;
     this.name = name;
@@ -31,8 +28,7 @@ export class Job {
     this.startDate = startDate;
     this.finishDate = finishDate;
     this.overheadRate = overheadRate;
-    this.materials = materials; 
-    this.labors = labors; 
-    this.status = status;
+    this.materials = materials;
+    this.labors = labors;
   }
 }

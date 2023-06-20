@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { DirectLaborCost } from 'src/app/models/direct-labor-cost.model';
 
 @Component({
   selector: 'app-labor-cost-detail',
@@ -11,12 +12,26 @@ import { Location } from '@angular/common';
 export class LaborCostDetailComponent {
   pageTitle: string = 'Add Labor Cost';
   costForm!: FormGroup;
+  isNewCost!: boolean;
+  cost!: DirectLaborCost;
 
-  constructor(private router: Router, private location: Location) {}
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private location: Location
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.router.url);
     this.costForm = new FormGroup({});
+    const id = this.activatedRoute.snapshot.paramMap.get('dlId');
+    console.log(id);
+    if (id == 'new') {
+      this.isNewCost = true;
+      this.pageTitle = 'new labor cost';
+    } else {
+      this.isNewCost = false;
+      this.pageTitle = 'update labor cost';
+    }
   }
 
   onSubmit(): void {

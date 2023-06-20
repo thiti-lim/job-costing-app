@@ -145,8 +145,7 @@ export class JobService {
       new Date(jobData.finishDate),
       parseFloat(jobData.overheadRate),
       materials,
-      labors,
-      JobStatus.InProgress
+      labors
     );
 
     job.materials = materials;
@@ -198,8 +197,7 @@ export class JobService {
         new Material(2, 'Material 2', 92, 600),
       ],
 
-      [new Labor(1, 'Labor 1', 500, 10000), new Labor(2, 'Labor 2', 20, 200)],
-      JobStatus.InProgress
+      [new Labor(1, 'Labor 1', 500, 10000), new Labor(2, 'Labor 2', 20, 200)]
     );
 
     const job2 = new Job(
@@ -210,8 +208,7 @@ export class JobService {
       new Date(),
       0.2,
       [new Material(3, 'Material 3', 30, 300)],
-      [new Labor(3, 'Labor 3', 30, 300)],
-      JobStatus.Completed
+      [new Labor(3, 'Labor 3', 30, 300)]
     );
 
     const job3 = new Job(
@@ -225,8 +222,7 @@ export class JobService {
         new Material(4, 'Material 4', 40, 400),
         new Material(5, 'Material 5', 50, 500),
       ],
-      [new Labor(4, 'Labor 4', 40, 400), new Labor(5, 'Labor 5', 50, 500)],
-      JobStatus.InProgress
+      [new Labor(4, 'Labor 4', 40, 400), new Labor(5, 'Labor 5', 50, 500)]
     );
 
     // Assign direct material costs to materials

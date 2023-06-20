@@ -27,7 +27,6 @@
           <th class="px-4 py-6 font-normal">Labors</th>
           <th class="px-4 py-6 font-normal">Start Date</th>
           <th class="px-4 py-6 font-normal">Finish Date</th>
-          <th class="px-4 py-6 font-normal">Status</th>
           <!-- Added column for actions -->
         </tr>
       </thead>
@@ -46,7 +45,6 @@
             <td class="py-4 px-4">
               {{ job.finishDate | date : 'dd/MM/yyyy' }}
             </td>
-            <td class="py-4 px-4">{{ job.status }}</td>
           </tr>
         </ng-container>
       </tbody>

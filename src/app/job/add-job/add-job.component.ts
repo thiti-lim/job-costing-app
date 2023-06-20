@@ -17,6 +17,8 @@ import {
   formArrayEmptyValidator,
   positiveNumberValidator,
 } from 'src/app/helpers/validators';
+import { MatDialog } from '@angular/material/dialog';
+import { AddDialogComponent } from 'src/app/components/dialog/add-dialog/add-dialog.component';
 
 @Component({
   selector: 'app-add-job',
@@ -35,6 +37,7 @@ export class AddJobComponent {
   constructor(
     private router: Router,
     private location: Location,
+    private dialog: MatDialog,
     private jobService: JobService,
     private formBuilder: FormBuilder,
     private customerService: CustomerService
@@ -58,14 +61,17 @@ export class AddJobComponent {
   }
 
   onSubmit(): void {
-    console.log(JSON.stringify(this.jobForm.value));
-
     if (this.jobForm.invalid) {
       this.jobForm.markAllAsTouched();
       return;
     }
-    this.jobService.addJob(this.jobForm.value);
-    this.router.navigate(['/job/history/']);
+    const dialogRef = this.dialog.open(AddDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.jobService.addJob(this.jobForm.value);
+        this.router.navigate(['/job/history/']);
+      }
+    });
   }
 
   get name() {

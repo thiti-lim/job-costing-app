@@ -19,6 +19,7 @@ import { MaterialCostDetailComponent } from './material/material-cost-detail/mat
 import { LaborCostListComponent } from './labor/labor-cost-list/labor-cost-list.component';
 import { LaborCostDetailComponent } from './labor/labor-cost-detail/labor-cost-detail.component';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { AddDialogComponent } from './components/dialog/add-dialog/add-dialog.component';
 
 const routes: Routes = [
   { path: 'job/history', component: JobHistoryComponent },
@@ -31,15 +32,7 @@ const routes: Routes = [
   },
   { path: 'job/:jobId/labor/:labId/costs', component: LaborCostListComponent },
   {
-    path: 'job/:jobId/labor/:labId/costs/new',
-    component: LaborCostDetailComponent,
-  },
-  {
     path: 'job/:jobId/material/:matId/costs/:dmId',
-    component: MaterialCostDetailComponent,
-  },
-  {
-    path: 'job/:jobId/material/:matId/costs/new',
     component: MaterialCostDetailComponent,
   },
   {
@@ -67,6 +60,7 @@ const routes: Routes = [
     MaterialCostDetailComponent,
     LaborCostListComponent,
     LaborCostDetailComponent,
+    AddDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,9 +69,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
   ],
-  providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
-  ],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

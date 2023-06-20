@@ -50,7 +50,7 @@ export class CustomerDetailComponent {
       ],
       phoneNumber: [
         this.customer?.phoneNumber ?? '',
-        [Validators.required, Validators.pattern(/^0\d{9}$/)],
+        [Validators.required, Validators.pattern(/^0\d{8,9}$/)],
       ],
     });
   }
