@@ -5,6 +5,8 @@ import { Component } from '@angular/core';
 import { Material } from 'src/app/models/material.model';
 import { Labor } from 'src/app/models/labor.model';
 import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from 'src/app/components/dialog/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-job-detail',
@@ -19,7 +21,8 @@ export class JobDetailComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private jobService: JobService,
-    private location: Location
+    private location: Location,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +54,16 @@ export class JobDetailComponent {
 
   getProgressBarWidth(actual: number, estimate: number) {
     return Math.min(100, (actual / estimate) * 100);
+  }
+
+  removeJob(job: Job): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.jobService.removeJob(job.id);
+        this.goBack();
+      }
+    });
   }
   goBack(): void {
     this.location.back();

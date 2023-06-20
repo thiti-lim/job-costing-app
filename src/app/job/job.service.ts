@@ -25,6 +25,13 @@ export class JobService {
   getJobById(id: number): Job | undefined {
     return this.jobs.find((job) => job.id === id);
   }
+
+  removeJob(jobId: number): void {
+    const index = this.jobs.findIndex((job) => job.id === jobId);
+    if (index > -1) {
+      this.jobs.splice(index, 1);
+    }
+  }
   getDirectMaterialCostList(
     jobId: number,
     materialId: number
@@ -283,7 +290,7 @@ export class JobService {
     costId: number,
     name: string,
     refNo: string,
-    seller: string, 
+    seller: string,
     units: number,
     costPerUnit: number,
     date: Date
@@ -293,7 +300,7 @@ export class JobService {
       cost.name = name;
       cost.refNo = refNo;
       cost.units = units;
-      cost.seller = seller; 
+      cost.seller = seller;
       cost.costPerUnit = costPerUnit;
       cost.date = date;
     }
@@ -304,7 +311,7 @@ export class JobService {
     laborId: number,
     costId: number,
     name: string,
-    refNo: string, 
+    refNo: string,
     hours: number,
     costPerHour: number,
     date: Date
@@ -313,7 +320,7 @@ export class JobService {
     if (cost) {
       cost.name = name;
       cost.hours = hours;
-      cost.refNo = refNo; 
+      cost.refNo = refNo;
       cost.costPerHour = costPerHour;
       cost.date = date;
     }
