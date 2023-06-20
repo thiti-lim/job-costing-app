@@ -105,6 +105,85 @@ export class JobService {
     }
   }
 
+  addJob(jobData: any): void {
+    const jobId = this.getNextJobId();
+    const customerId = jobData.customer.id;
+
+    const customer = new Customer(
+      customerId,
+      jobData.customer.name,
+      jobData.customer.location,
+      jobData.customer.phoneNumber,
+      jobData.customer.contact
+    );
+
+    const materials: Material[] = jobData.materials.map((materialData: any) => {
+      const materialId = this.getNextMaterialId();
+      return new Material(
+        materialId,
+        materialData.materialName,
+        parseInt(materialData.estimatedUnits),
+        parseInt(materialData.estimatedTotalCost)
+      );
+    });
+
+    const labors: Labor[] = jobData.labors.map((laborData: any) => {
+      const laborId = this.getNextLaborId();
+      return new Labor(
+        laborId,
+        laborData.laborName,
+        parseInt(laborData.estimatedHours),
+        parseInt(laborData.estimatedTotalCost)
+      );
+    });
+
+    const job = new Job(
+      jobId,
+      jobData.name,
+      customer,
+      new Date(jobData.startDate),
+      new Date(jobData.finishDate),
+      parseFloat(jobData.overheadRate),
+      materials,
+      labors,
+      JobStatus.InProgress
+    );
+
+    job.materials = materials;
+    job.labors = labors;
+
+    this.jobs.push(job);
+  }
+
+  private getNextJobId(): number {
+    const lastJob = this.jobs[this.jobs.length - 1];
+    const lastJobId = lastJob ? lastJob.id : 0;
+    return lastJobId + 1;
+  }
+
+  private getNextMaterialId(): number {
+    let maxMaterialId = 0;
+    this.jobs.forEach((job) => {
+      job.materials.forEach((material) => {
+        if (material.id > maxMaterialId) {
+          maxMaterialId = material.id;
+        }
+      });
+    });
+    return maxMaterialId + 1;
+  }
+
+  private getNextLaborId(): number {
+    let maxLaborId = 0;
+    this.jobs.forEach((job) => {
+      job.labors.forEach((labor) => {
+        if (labor.id > maxLaborId) {
+          maxLaborId = labor.id;
+        }
+      });
+    });
+    return maxLaborId + 1;
+  }
   createMockJobs(): void {
     // Create jobs using mock data
     const job1 = new Job(

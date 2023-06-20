@@ -1,3 +1,4 @@
+import { JobService } from 'src/app/job/job.service';
 import { Component } from '@angular/core';
 import {
   FormArray,
@@ -12,7 +13,9 @@ import { Customer } from 'src/app/models/customer.model';
 import { CustomerService } from 'src/app/customer/customer.service';
 import {
   dateValidator,
+  whitespaceValidator,
   formArrayEmptyValidator,
+  positiveNumberValidator,
 } from 'src/app/helpers/validators';
 
 @Component({
@@ -32,6 +35,7 @@ export class AddJobComponent {
   constructor(
     private router: Router,
     private location: Location,
+    private jobService: JobService,
     private formBuilder: FormBuilder,
     private customerService: CustomerService
   ) {}
@@ -43,7 +47,7 @@ export class AddJobComponent {
       customer: ['', Validators.required],
       startDate: ['', [dateValidator()]],
       finishDate: ['', [dateValidator()]],
-      overheadRate: [''],
+      overheadRate: ['', [Validators.required, positiveNumberValidator()]],
       materials: this.formBuilder.array([], [formArrayEmptyValidator()]),
       labors: this.formBuilder.array([], [formArrayEmptyValidator()]),
     });
@@ -54,12 +58,14 @@ export class AddJobComponent {
   }
 
   onSubmit(): void {
-    console.log(this.jobForm.value);
-    console.log(this.customer?.touched);
+    console.log(JSON.stringify(this.jobForm.value));
+
     if (this.jobForm.invalid) {
       this.jobForm.markAllAsTouched();
       return;
     }
+    this.jobService.addJob(this.jobForm.value);
+    this.router.navigate(['/job/history/']);
   }
 
   get name() {
@@ -96,8 +102,14 @@ export class AddJobComponent {
   addMaterial() {
     const matForm = this.formBuilder.group({
       materialName: ['', Validators.required],
-      estimatedUnits: ['', [Validators.required, Validators.min(0)]],
-      estimatedTotalCost: ['', [Validators.required, Validators.min(0)]],
+      estimatedUnits: [
+        '',
+        [Validators.required, whitespaceValidator(), positiveNumberValidator()],
+      ],
+      estimatedTotalCost: [
+        '',
+        [Validators.required, whitespaceValidator(), positiveNumberValidator()],
+      ],
     });
     this.materials.push(matForm);
   }
@@ -105,15 +117,16 @@ export class AddJobComponent {
   addLabor() {
     const labForm = this.formBuilder.group({
       laborName: ['', Validators.required],
-      estimatedHours: ['', [Validators.required, Validators.min(0)]],
-      estimatedTotalCost: ['', [Validators.required, Validators.min(0)]],
+      estimatedHours: ['', [Validators.required, positiveNumberValidator()]],
+      estimatedTotalCost: [
+        '',
+        [Validators.required, positiveNumberValidator()],
+      ],
     });
     this.labors.push(labForm);
   }
 
   removeMaterial(matIndex: number) {
-    const meme = this.materials.at(matIndex) as FormControl;
-    console.log(meme.get('materialName'));
     this.materials.removeAt(matIndex);
   }
 

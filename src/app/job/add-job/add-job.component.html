@@ -229,6 +229,12 @@
                   >
                     Required
                   </div>
+                  <div
+                    *ngIf="materials.at(i).get('estimatedUnits')?.errors?.['positiveNumber'] || materials.at(i).get('estimatedUnits')?.errors?.['whitespace']"
+                    class="text-red-500 text-sm"
+                  >
+                    Invalid
+                  </div>
                 </div>
               </div>
               <input
@@ -260,6 +266,12 @@
                     class="text-red-500 text-sm"
                   >
                     Required
+                  </div>
+                  <div
+                    *ngIf="materials.at(i).get('estimatedTotalCost')?.errors?.['positiveNumber'] || materials.at(i).get('estimatedTotalCost')?.errors?.['whitespace']"
+                    class="text-red-500 text-sm"
+                  >
+                    Invalid
                   </div>
                 </div>
               </div>
@@ -302,6 +314,7 @@
         </div>
         <div>
           <button
+            type="button"
             class="bg-teal-500 py-2 px-3 rounded-md text-white flex w-44 justify-center"
             (click)="addMaterial()"
           >
@@ -336,11 +349,28 @@
         >
           <div class="flex mb-6 items-end">
             <div class="mr-5 w-1/2">
-              <label
-                for="laborName"
-                class="mb-2 text-sm font-medium text-gray-900 block"
-                >Labor Name</label
-              >
+              <div class="flex">
+                <label
+                  for="laborName"
+                  class="mb-2 text-sm font-medium text-gray-900 block"
+                  >Labor Department</label
+                >
+                <div
+                  *ngIf="
+                    labors.at(i).get('laborName')?.invalid &&
+                    (labors.at(i).get('laborName')?.dirty ||
+                      labors.at(i).get('laborName')?.touched)
+                  "
+                  class="ml-2"
+                >
+                  <div
+                    *ngIf="labors.at(i).get('laborName')?.errors?.['required']"
+                    class="text-red-500 text-sm"
+                  >
+                    Required
+                  </div>
+                </div>
+              </div>
               <input
                 type="text"
                 formControlName="laborName"
@@ -351,11 +381,34 @@
               />
             </div>
             <div class="mr-5">
-              <label
-                for="estimatedUnits"
-                class="block mb-2 text-sm font-medium text-gray-900"
-                >Estimated Hours</label
-              >
+              <div class="flex">
+                <label
+                  for="estimatedHours"
+                  class="mb-2 text-sm font-medium text-gray-900 block"
+                  >Estimated Cost</label
+                >
+                <div
+                  *ngIf="
+                    labors.at(i).get('estimatedHours')?.invalid &&
+                    (labors.at(i).get('estimatedHours')?.dirty ||
+                      labors.at(i).get('estimatedHours')?.touched)
+                  "
+                  class="ml-2"
+                >
+                  <div
+                    *ngIf="labors.at(i).get('estimatedHours')?.errors?.['required']"
+                    class="text-red-500 text-sm"
+                  >
+                    Required
+                  </div>
+                  <div
+                    *ngIf="labors.at(i).get('estimatedHours')?.errors?.['positiveNumber'] || labors.at(i).get('estimatedHours')?.errors?.['whitespace']"
+                    class="text-red-500 text-sm"
+                  >
+                    Invalid
+                  </div>
+                </div>
+              </div>
               <input
                 type="text"
                 formControlName="estimatedHours"
@@ -366,11 +419,34 @@
               />
             </div>
             <div class="mr-8">
-              <label
-                for="name"
-                class="block mb-2 text-sm font-medium text-gray-900"
-                >Estimated Total Cost</label
-              >
+              <div class="flex">
+                <label
+                  for="estimatedTotalCost"
+                  class="mb-2 text-sm font-medium text-gray-900 block"
+                  >Estimated Cost</label
+                >
+                <div
+                  *ngIf="
+                    labors.at(i).get('estimatedTotalCost')?.invalid &&
+                    (labors.at(i).get('estimatedTotalCost')?.dirty ||
+                      labors.at(i).get('estimatedTotalCost')?.touched)
+                  "
+                  class="ml-2"
+                >
+                  <div
+                    *ngIf="labors.at(i).get('estimatedTotalCost')?.errors?.['required']"
+                    class="text-red-500 text-sm"
+                  >
+                    Required
+                  </div>
+                  <div
+                    *ngIf="labors.at(i).get('estimatedTotalCost')?.errors?.['positiveNumber'] || labors.at(i).get('estimatedTotalCost')?.errors?.['whitespace']"
+                    class="text-red-500 text-sm"
+                  >
+                    Invalid
+                  </div>
+                </div>
+              </div>
               <input
                 type="text"
                 formControlName="estimatedTotalCost"
@@ -410,6 +486,7 @@
         </div>
         <div>
           <button
+            type="button"
             class="bg-teal-500 py-2 px-3 rounded-md text-white flex w-44 justify-center"
             (click)="addLabor()"
           >
@@ -437,6 +514,38 @@
     <div class="bg-purple-600 h-3 rounded-t-md"></div>
     <div class="bg-white py-8 px-10 rounded-b-md mb-6">
       <div class="mb-5 text-xl font-bold text-gray-900">Overhead</div>
+      <label
+        for="overheadRate"
+        class="block mb-2 text-sm font-medium text-gray-900"
+        >Overhead rate</label
+      >
+      <input
+        type="text"
+        formControlName="overheadRate"
+        id="overheadRate"
+        class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-52 p-2.5"
+        placeholder="Enter overhead rate (%)"
+        required
+      />
+      <div
+        *ngIf="
+          overheadRate?.invalid &&
+          (overheadRate?.dirty || overheadRate?.touched)
+        "
+      >
+        <div
+          *ngIf="overheadRate?.errors?.['required']"
+          class="text-red-500 text-sm mt-1"
+        >
+          Overhead rate is required
+        </div>
+        <div
+          *ngIf="overheadRate?.errors?.['positiveNumber'] || overheadRate?.errors?.['whitespace']"
+          class="text-red-500 text-sm mt-1"
+        >
+          Overhead rate is invalid
+        </div>
+      </div>
     </div>
     <div class="flex justify-end">
       <button
