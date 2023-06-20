@@ -13,5 +13,140 @@
     <div class="mb-5 text-xl font-bold text-gray-900">
       {{ isNewCost ? 'Add' : 'Edit' }} Labor Cost
     </div>
+    <div class="mb-5">
+      <label for="name" class="block mb-2 text-sm font-medium text-gray-900"
+        >Labor Cost Name</label
+      >
+      <input
+        type="text"
+        formControlName="name"
+        id="name"
+        class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+        placeholder="Enter cost name"
+        required
+      />
+      <div *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+        <div
+          *ngIf="name?.errors?.['required'] || name?.errors?.['whitespace']"
+          class="text-red-500 text-sm mt-1"
+        >
+          Name is required.
+        </div>
+      </div>
+    </div>
+    <div class="mb-5">
+      <label for="refNo" class="block mb-2 text-sm font-medium text-gray-900"
+        >Reference Number</label
+      >
+      <input
+        type="text"
+        formControlName="refNo"
+        id="refNo"
+        class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+        placeholder="Enter Reference Number"
+        required
+      />
+      <div *ngIf="refNo?.invalid && (refNo?.dirty || refNo?.touched)">
+        <div
+          *ngIf="refNo?.errors?.['required'] || refNo?.errors?.['whitespace']"
+          class="text-red-500 text-sm mt-1"
+        >
+          Reference Number is required.
+        </div>
+      </div>
+    </div>
+    <div class="flex mb-5">
+      <div class="w-1/2 mr-2">
+        <label for="hours" class="block mb-2 text-sm font-medium text-gray-900"
+          >Hours</label
+        >
+        <input
+          type="text"
+          formControlName="hours"
+          id="hours"
+          class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+          placeholder="Enter number of hours"
+          required
+        />
+        <div *ngIf="hours?.invalid && (hours?.dirty || hours?.touched)">
+          <div
+            *ngIf="hours?.errors?.['required']"
+            class="text-red-500 text-sm mt-1"
+          >
+            Hours is required.
+          </div>
+          <div
+            *ngIf="hours?.errors?.['whitespace'] || hours?.errors?.['positiveNumber']"
+            class="text-red-500 text-sm mt-1"
+          >
+            Hours is invalid.
+          </div>
+        </div>
+      </div>
+      <div class="w-1/2 ml-2">
+        <label
+          for="costPerHour"
+          class="block mb-2 text-sm font-medium text-gray-900"
+          >Cost Per Hour</label
+        >
+        <input
+          type="text"
+          formControlName="costPerHour"
+          id="costPerHour"
+          class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+          placeholder="Enter cost per unit"
+          required
+        />
+        <div
+          *ngIf="
+            costPerHour?.invalid && (costPerHour?.dirty || costPerHour?.touched)
+          "
+        >
+          <div
+            *ngIf="costPerHour?.errors?.['required']"
+            class="text-red-500 text-sm mt-1"
+          >
+            Cost Per Hour is required.
+          </div>
+
+          <div
+            *ngIf="costPerHour?.errors?.['whitespace'] || costPerHour?.errors?.['positiveNumber']"
+            class="text-red-500 text-sm mt-1"
+          >
+            Cost Per Hour is invalid.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-7 w-28">
+      <label for="date" class="block mb-2 text-sm font-medium text-gray-900"
+        >Date</label
+      >
+      <input
+        type="text"
+        formControlName="date"
+        id="date"
+        [matDatepicker]="datePicker"
+        (focus)="datePicker.open()"
+        class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block w-full p-2.5"
+        placeholder="Enter date"
+        required
+      />
+      <mat-datepicker #datePicker class="fixed"></mat-datepicker>
+      <div *ngIf="date?.invalid && (date?.dirty || date?.touched)">
+        <div *ngIf="date?.errors?.['date']" class="text-red-500 text-sm mt-1">
+          Invalid date
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-end">
+      <button
+        type="submit"
+        class="bg-purple-700 text-white py-2 px-4 rounded-md shadow hover:bg-purple-900 disabled:bg-gray-300 disabled:cursor-not-allowed"
+        onsubmit="onSubmit()"
+      >
+        {{ isNewCost ? 'ADD' : 'EDIT' }}
+      </button>
+    </div>
   </div>
 </form>

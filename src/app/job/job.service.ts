@@ -304,6 +304,7 @@ export class JobService {
     laborId: number,
     costId: number,
     name: string,
+    refNo: string, 
     hours: number,
     costPerHour: number,
     date: Date
@@ -312,6 +313,7 @@ export class JobService {
     if (cost) {
       cost.name = name;
       cost.hours = hours;
+      cost.refNo = refNo; 
       cost.costPerHour = costPerHour;
       cost.date = date;
     }

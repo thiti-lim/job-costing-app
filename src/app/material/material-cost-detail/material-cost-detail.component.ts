@@ -96,12 +96,13 @@ export class MaterialCostDetailComponent {
   }
 
   onSubmit(): void {
-    console.log(this.seller?.valid);
     if (this.costForm.invalid) {
       this.costForm.markAllAsTouched();
       return;
     }
-    const dialogRef = this.dialog.open(EditDialogComponent);
+    const dialogRef = this.isNewCost
+      ? this.dialog.open(AddDialogComponent)
+      : this.dialog.open(EditDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (this.isNewCost) {
