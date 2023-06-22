@@ -56,6 +56,6 @@ export class LaborCostListComponent {
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['job', this.jobId]);
   }
 }

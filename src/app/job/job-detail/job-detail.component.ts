@@ -7,6 +7,8 @@ import { Labor } from 'src/app/models/labor.model';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/components/dialog/delete-dialog/delete-dialog.component';
+import { AddMaterialComponent } from 'src/app/components/dialog/add-material/add-material.component';
+import { AddLaborComponent } from 'src/app/components/dialog/add-labor/add-labor.component';
 
 @Component({
   selector: 'app-job-detail',
@@ -66,6 +68,34 @@ export class JobDetailComponent {
       if (result) {
         this.jobService.removeJob(job.id);
         this.goBack();
+      }
+    });
+  }
+
+  addMaterial(): void {
+    const dialogRef = this.dialog.open(AddMaterialComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.jobService.addMaterialToJob(
+          this.job.id,
+          result.materialName,
+          result.estimatedUnits,
+          result.estimatedCostPerUnit
+        );
+      }
+    });
+  }
+
+  addLabor(): void {
+    const dialogRef = this.dialog.open(AddLaborComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.jobService.addLaborToJob(
+          this.job.id,
+          result.laborName,
+          result.estimatedHours,
+          result.estimatedRatePerHour
+        );
       }
     });
   }

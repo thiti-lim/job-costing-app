@@ -70,9 +70,6 @@ export class LaborCostDetailComponent {
     });
   }
 
-  get name() {
-    return this.costForm.get('name');
-  }
   get refNo() {
     return this.costForm.get('refNo');
   }
@@ -99,7 +96,6 @@ export class LaborCostDetailComponent {
           this.jobService.addDirectLaborCost(
             this.jobId,
             this.labId,
-            this.name!.value,
             this.refNo!.value,
             Number(this.hours!.value),
             Number(this.costPerHour!.value),

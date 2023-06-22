@@ -1,0 +1,123 @@
+<div class="w-80 p-2">
+  <h2 mat-dialog-title>Add material</h2>
+  <mat-dialog-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="mb-5">
+        <div class="flex">
+          <label
+            for="laborName"
+            class="mb-2 text-sm font-medium text-gray-900 block"
+            >Labor Name</label
+          >
+          <div
+            *ngIf="
+              laborName?.invalid && (laborName?.dirty || laborName?.touched)
+            "
+            class="ml-2"
+          >
+            <div
+              *ngIf="laborName?.errors?.['required'] || laborName?.errors?.['whitespace']"
+              class="text-red-500 text-sm"
+            >
+              Required
+            </div>
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="laborName"
+          id="laborName"
+          class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block p-2.5 w-full"
+          placeholder="Enter labor name"
+          required
+        />
+      </div>
+      <div class="mb-5">
+        <div class="flex">
+          <label
+            for="estimatedHours"
+            class="mb-2 text-sm font-medium text-gray-900 block"
+            >Estimated Hours</label
+          >
+          <div
+            *ngIf="
+              estimatedHours?.invalid &&
+              (estimatedHours?.dirty || estimatedHours?.touched)
+            "
+            class="ml-2"
+          >
+            <div
+              *ngIf="estimatedHours?.errors?.['required']"
+              class="text-red-500 text-sm"
+            >
+              Required
+            </div>
+            <div
+              *ngIf="estimatedHours?.errors?.['positiveNumber'] || estimatedHours?.errors?.['whitespace']"
+              class="text-red-500 text-sm"
+            >
+              Invalid
+            </div>
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="estimatedHours"
+          id="estimatedHours"
+          class="w-full bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block p-2.5"
+          placeholder="Enter hours"
+          required
+        />
+      </div>
+      <div class="mb-8">
+        <div class="flex">
+          <label
+            for="estimatedRatePerHour"
+            class="mb-2 text-sm font-medium text-gray-900 block"
+            >Estimated Rate Per Hour</label
+          >
+          <div
+            *ngIf="
+              estimatedRatePerHour?.invalid &&
+              (estimatedRatePerHour?.dirty || estimatedRatePerHour?.touched)
+            "
+            class="ml-2"
+          >
+            <div
+              *ngIf="estimatedRatePerHour?.errors?.['required']"
+              class="text-red-500 text-sm"
+            >
+              Required
+            </div>
+            <div
+              *ngIf="estimatedRatePerHour?.errors?.['positiveNumber'] || estimatedRatePerHour?.errors?.['whitespace']"
+              class="text-red-500 text-sm"
+            >
+              Invalid
+            </div>
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="estimatedRatePerHour"
+          id="estimatedRatePerHour"
+          class="w-full bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block p-2.5"
+          placeholder="Enter rate per hour"
+          required
+        />
+      </div>
+      <div class="flex justify-between">
+        <button mat-dialog-close>
+          <div class="font-thin">Cancel</div>
+        </button>
+        <button
+          type="submit"
+          onsubmit="onSubmit()"
+          class="bg-purple-700 text-white py-2 px-4 rounded-md shadow hover:bg-purple-900 disabled:bg-gray-300 disabled:cursor-not-allowed"
+        >
+          ADD
+        </button>
+      </div>
+    </form>
+  </mat-dialog-content>
+</div>

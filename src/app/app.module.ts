@@ -21,6 +21,8 @@ import { LaborCostDetailComponent } from './labor/labor-cost-detail/labor-cost-d
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { AddDialogComponent } from './components/dialog/add-dialog/add-dialog.component';
 import { EditDialogComponent } from './components/dialog/edit-dialog/edit-dialog.component';
+import { AddMaterialComponent } from './components/dialog/add-material/add-material.component';
+import { AddLaborComponent } from './components/dialog/add-labor/add-labor.component';
 
 const routes: Routes = [
   { path: 'job/history', component: JobHistoryComponent },
@@ -63,6 +65,8 @@ const routes: Routes = [
     LaborCostDetailComponent,
     AddDialogComponent,
     EditDialogComponent,
+    AddMaterialComponent,
+    AddLaborComponent,
   ],
   imports: [
     BrowserModule,

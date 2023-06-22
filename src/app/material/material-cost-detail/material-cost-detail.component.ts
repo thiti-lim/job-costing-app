@@ -72,9 +72,6 @@ export class MaterialCostDetailComponent {
     });
   }
 
-  get name() {
-    return this.costForm.get('name');
-  }
   get refNo() {
     return this.costForm.get('refNo');
   }
@@ -105,7 +102,6 @@ export class MaterialCostDetailComponent {
           this.jobService.addDirectMaterialCost(
             this.jobId,
             this.matId,
-            this.name!.value,
             this.refNo!.value,
             this.seller!.value,
             Number(this.units!.value),

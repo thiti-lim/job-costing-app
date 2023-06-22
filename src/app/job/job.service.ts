@@ -176,7 +176,6 @@ export class JobService {
   addDirectMaterialCost(
     jobId: number,
     materialId: number,
-    name: string,
     refNo: string,
     seller: string,
     units: number,
@@ -217,7 +216,6 @@ export class JobService {
   addDirectLaborCost(
     jobId: number,
     laborId: number,
-    name: string,
     refNo: string,
     hours: number,
     costPerHour: number,
@@ -250,6 +248,56 @@ export class JobService {
       ? lastDirectLaborCost.id
       : 0;
     return lastDirectLaborCostId + 1;
+  }
+
+  addMaterialToJob(
+    jobId: number,
+    materialName: string,
+    estimatedUnits: number,
+    estimatedCostPerUnit: number
+  ): void {
+    const job = this.getJobById(jobId);
+    if (job) {
+      // Generate a new ID for the material
+      const newMaterialId =
+        job.materials.length > 0
+          ? Math.max(...job.materials.map((m) => m.id)) + 1
+          : 1;
+
+      const material: Material = new Material(
+        newMaterialId,
+        materialName,
+        estimatedUnits,
+        estimatedCostPerUnit
+      );
+
+      job.materials.push(material);
+    }
+  }
+
+  addLaborToJob(
+    jobId: number,
+    laborName: string,
+    estimatedHours: number,
+    estimatedRatePerHour: number
+  ): void {
+    const job = this.getJobById(jobId);
+    if (job) {
+      // Generate a new ID for the labor
+      const newLaborId =
+        job.labors.length > 0
+          ? Math.max(...job.labors.map((l) => l.id)) + 1
+          : 1;
+
+      const labor: Labor = new Labor(
+        newLaborId,
+        laborName,
+        estimatedHours,
+        estimatedRatePerHour
+      );
+
+      job.labors.push(labor);
+    }
   }
 
   getDirectMaterialCostById(

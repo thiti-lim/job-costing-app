@@ -3,6 +3,8 @@ import { JobService } from '../job.service';
 import { Job } from 'src/app/models/job.model';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { AddMaterialComponent } from 'src/app/components/dialog/add-material/add-material.component';
 @Component({
   selector: 'app-job-history',
   templateUrl: './job-history.component.html',
@@ -14,7 +16,7 @@ export class JobHistoryComponent {
   constructor(
     private jobService: JobService,
     private router: Router,
-    private location: Location
+    private location: Location,
   ) {}
   ngOnInit(): void {
     this.jobs = this.jobService.getJobs();
