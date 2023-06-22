@@ -2,7 +2,6 @@ import { Material } from './material.model';
 
 export class DirectMaterialCost {
   id: number;
-  name: string;
   units: number;
   costPerUnit: number;
   seller: string;
@@ -11,7 +10,6 @@ export class DirectMaterialCost {
 
   constructor(
     id: number,
-    name: string,
     units: number,
     costPerUnit: number,
     seller: string,
@@ -19,7 +17,6 @@ export class DirectMaterialCost {
     date: Date
   ) {
     this.id = id;
-    this.name = name;
     this.units = units;
     this.costPerUnit = costPerUnit;
     this.seller = seller;

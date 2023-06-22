@@ -70,6 +70,6 @@ export class JobDetailComponent {
     });
   }
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['job', 'history']);
   }
 }

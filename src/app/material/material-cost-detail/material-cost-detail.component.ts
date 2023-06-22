@@ -52,10 +52,6 @@ export class MaterialCostDetailComponent {
       );
     }
     this.costForm = this.formBuilder.group({
-      name: [
-        this.cost?.name ?? '',
-        [Validators.required, whitespaceValidator()],
-      ],
       refNo: [
         this.cost?.refNo ?? '',
         [Validators.required, whitespaceValidator()],
@@ -122,7 +118,6 @@ export class MaterialCostDetailComponent {
             this.jobId,
             this.matId,
             this.cost!.id,
-            this.name!.value,
             this.refNo!.value,
             this.seller!.value,
             Number(this.units!.value),

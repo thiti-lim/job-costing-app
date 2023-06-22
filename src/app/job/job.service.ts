@@ -192,7 +192,6 @@ export class JobService {
         );
         const directMaterialCost = new DirectMaterialCost(
           directMaterialCostId,
-          name,
           units,
           costPerUnit,
           seller,
@@ -233,7 +232,6 @@ export class JobService {
         );
         const directLaborCost = new DirectLaborCost(
           directLaborCostId,
-          name,
           refNo,
           hours,
           costPerHour,
@@ -288,7 +286,6 @@ export class JobService {
     jobId: number,
     materialId: number,
     costId: number,
-    name: string,
     refNo: string,
     seller: string,
     units: number,
@@ -297,7 +294,6 @@ export class JobService {
   ): void {
     const cost = this.getDirectMaterialCostById(jobId, materialId, costId);
     if (cost) {
-      cost.name = name;
       cost.refNo = refNo;
       cost.units = units;
       cost.seller = seller;
@@ -310,7 +306,6 @@ export class JobService {
     jobId: number,
     laborId: number,
     costId: number,
-    name: string,
     refNo: string,
     hours: number,
     costPerHour: number,
@@ -318,7 +313,6 @@ export class JobService {
   ): void {
     const cost = this.getDirectLaborCostById(jobId, laborId, costId);
     if (cost) {
-      cost.name = name;
       cost.hours = hours;
       cost.refNo = refNo;
       cost.costPerHour = costPerHour;
@@ -367,93 +361,31 @@ export class JobService {
 
     // Assign direct material costs to materials
     job1.materials[0].directMaterialCosts.push(
-      new DirectMaterialCost(
-        1,
-        'DM Wood Cost 1',
-        10,
-        100,
-        'Seller 1',
-        'WOOD-001',
-        new Date()
-      ),
-      new DirectMaterialCost(
-        2,
-        'DM Wood Cost 2',
-        20,
-        150,
-        'Seller 2',
-        'WOOD-002',
-        new Date()
-      ),
-      new DirectMaterialCost(
-        3,
-        'DM Wood Cost 3',
-        15,
-        800,
-        'Seller 1',
-        'WOOD-003',
-        new Date()
-      ),
-      new DirectMaterialCost(
-        4,
-        'DM Wood Cost 4',
-        25,
-        12,
-        'Seller 2',
-        'WOOD-004',
-        new Date()
-      ),
-      new DirectMaterialCost(
-        5,
-        'DM Wood Cost 5',
-        18,
-        9,
-        'Seller 1',
-        'WOOD-005',
-        new Date()
-      )
+      new DirectMaterialCost(1, 10, 100, 'Seller 1', 'WOOD-001', new Date()),
+      new DirectMaterialCost(2, 20, 150, 'Seller 2', 'WOOD-002', new Date()),
+      new DirectMaterialCost(3, 15, 800, 'Seller 1', 'WOOD-003', new Date()),
+      new DirectMaterialCost(4, 25, 12, 'Seller 2', 'WOOD-004', new Date()),
+      new DirectMaterialCost(5, 18, 9, 'Seller 1', 'WOOD-005', new Date())
     );
     job1.materials[0].directMaterialCosts.push(
-      new DirectMaterialCost(
-        6,
-        'Direct Material Cost 2',
-        20,
-        15,
-        'Seller 2',
-        'DM-002',
-        new Date()
-      )
+      new DirectMaterialCost(6, 20, 15, 'Seller 2', 'DM-002', new Date())
     );
 
     // Assign direct labor costs to labors
     job1.labors[0].directLaborCosts.push(
-      new DirectLaborCost(1, 'Direct Labor Cost 1', 'DL-001', 12, 8, new Date())
+      new DirectLaborCost(1, 'DL-001', 12, 8, new Date())
     );
     job1.labors[0].directLaborCosts.push(
-      new DirectLaborCost(
-        2,
-        'Direct Labor Cost 2',
-        'DL-002',
-        15,
-        10,
-        new Date()
-      )
+      new DirectLaborCost(2, 'DL-002', 15, 10, new Date())
     );
     job1.labors[0].directLaborCosts.push(
-      new DirectLaborCost(3, 'Direct Labor Cost 3', 'DL-003', 10, 6, new Date())
+      new DirectLaborCost(3, 'DL-003', 10, 6, new Date())
     );
     job1.labors[0].directLaborCosts.push(
-      new DirectLaborCost(4, 'Direct Labor Cost 4', 'DL-004', 18, 8, new Date())
+      new DirectLaborCost(4, 'DL-004', 18, 8, new Date())
     );
     job1.labors[0].directLaborCosts.push(
-      new DirectLaborCost(
-        5,
-        'Direct Labor Cost 5',
-        'DL-005',
-        20,
-        12,
-        new Date()
-      )
+      new DirectLaborCost(5, 'DL-005', 20, 12, new Date())
     );
 
     // Push the created jobs to the jobs array

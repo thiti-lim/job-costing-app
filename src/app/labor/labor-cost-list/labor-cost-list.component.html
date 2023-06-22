@@ -20,7 +20,6 @@
     >
       <thead class="bg-purple-700 text-left text-white">
         <tr>
-          <th class="pl-8 py-6 font-normal">Name</th>
           <th class="py-6 px-4 font-normal">Ref No</th>
           <th class="py-6 px-4 font-normal">Hours</th>
           <th class="py-6 px-4 font-normal">Cost/Hour</th>
@@ -32,10 +31,7 @@
       </thead>
       <tbody class="font-light">
         <tr *ngFor="let cost of costList; even as isEven; odd as isOdd">
-          <td class="py-4 pl-8 {{ isEven ? 'bg-white' : 'bg-gray-100' }}">
-            {{ cost.name }}
-          </td>
-          <td class="py-4 px-4  {{ isEven ? 'bg-white' : 'bg-gray-100' }}">
+          <td class="py-4 px-4 {{ isEven ? 'bg-white' : 'bg-gray-100' }}">
             {{ cost.refNo }}
           </td>
           <td class="py-4 px-4  {{ isEven ? 'bg-white' : 'bg-gray-100' }}">

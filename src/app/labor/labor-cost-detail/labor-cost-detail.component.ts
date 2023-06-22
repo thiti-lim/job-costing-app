@@ -54,10 +54,6 @@ export class LaborCostDetailComponent {
     }
 
     this.costForm = this.formBuilder.group({
-      name: [
-        this.cost?.name ?? '',
-        [Validators.required, whitespaceValidator()],
-      ],
       refNo: [
         this.cost?.refNo ?? '',
         [Validators.required, whitespaceValidator()],
@@ -115,7 +111,6 @@ export class LaborCostDetailComponent {
             this.jobId,
             this.labId,
             this.cost!.id,
-            this.name!.value,
             this.refNo!.value,
             Number(this.hours!.value),
             Number(this.costPerHour!.value),
