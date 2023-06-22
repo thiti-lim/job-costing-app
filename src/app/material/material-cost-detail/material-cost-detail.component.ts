@@ -116,7 +116,7 @@ export class MaterialCostDetailComponent {
             Number(this.costPerUnit!.value),
             this.date!.value
           );
-          this.location.back();
+          this.goBack();
         } else {
           this.jobService.updateDirectMaterialCost(
             this.jobId,
@@ -129,12 +129,12 @@ export class MaterialCostDetailComponent {
             Number(this.costPerUnit!.value),
             this.date!.value
           );
-          this.location.back();
+          this.goBack();
         }
       }
     });
   }
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['job', this.jobId, 'material', this.matId, 'costs']);
   }
 }

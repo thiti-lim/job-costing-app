@@ -109,7 +109,7 @@ export class LaborCostDetailComponent {
             Number(this.costPerHour!.value),
             this.date!.value
           );
-          this.location.back();
+          this.goBack();
         } else {
           this.jobService.updateDirectLaborCost(
             this.jobId,
@@ -121,13 +121,13 @@ export class LaborCostDetailComponent {
             Number(this.costPerHour!.value),
             this.date!.value
           );
-          this.location.back();
+          this.goBack();
         }
       }
     });
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['job', this.jobId, 'labor', this.labId, 'costs']);
   }
 }

@@ -335,10 +335,7 @@ export class JobService {
       new Date(),
       new Date(),
       0.1,
-      [
-        new Material(1, 'Wood', 220, 7000),
-        new Material(2, 'Material 2', 92, 600),
-      ],
+      [new Material(1, 'Wood', 40, 500), new Material(2, 'Material 2', 92, 50)],
 
       [new Labor(1, 'Labor 1', 500, 10000), new Labor(2, 'Labor 2', 20, 200)]
     );
@@ -374,7 +371,7 @@ export class JobService {
         1,
         'DM Wood Cost 1',
         10,
-        10,
+        100,
         'Seller 1',
         'WOOD-001',
         new Date()
@@ -383,7 +380,7 @@ export class JobService {
         2,
         'DM Wood Cost 2',
         20,
-        15,
+        150,
         'Seller 2',
         'WOOD-002',
         new Date()
@@ -392,7 +389,7 @@ export class JobService {
         3,
         'DM Wood Cost 3',
         15,
-        8,
+        800,
         'Seller 1',
         'WOOD-003',
         new Date()

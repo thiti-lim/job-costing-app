@@ -56,6 +56,10 @@ export class JobDetailComponent {
     return Math.min(100, (actual / estimate) * 100);
   }
 
+  calculatePercentError(actual: number, estimate: number) {
+    return (Math.abs(estimate - actual) / estimate) * 100;
+  }
+
   removeJob(job: Job): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {

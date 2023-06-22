@@ -31,4 +31,59 @@ export class Job {
     this.materials = materials;
     this.labors = labors;
   }
+
+  get estimatedMaterialCost(): number {
+    return this.materials.reduce(
+      (acc, current) => acc + current.estimatedTotalCost,
+      0
+    );
+  }
+  get actualMaterialCost(): number {
+    return this.materials.reduce(
+      (acc, current) => acc + current.actualTotalCost,
+      0
+    );
+  }
+
+  get estimatedMaterialUnits(): number {
+    return this.materials.reduce(
+      (acc, current) => acc + current.estimatedUnits,
+      0
+    );
+  }
+  get actualMaterialUnits(): number {
+    return this.materials.reduce(
+      (acc, current) => acc + current.actualUnits,
+      0
+    );
+  }
+
+  get estimatedLaborCost(): number {
+    return this.labors.reduce(
+      (acc, current) => acc + current.estimatedTotalCost,
+      0
+    );
+  }
+  get actualLaborCost(): number {
+    return this.labors.reduce(
+      (acc, current) => acc + current.actualTotalCost,
+      0
+    );
+  }
+
+  get estimatedLaborHours(): number {
+    return this.labors.reduce(
+      (acc, current) => acc + current.estimatedHours,
+      0
+    );
+  }
+  get actualLaborHours(): number {
+    return this.labors.reduce((acc, current) => acc + current.actualHours, 0);
+  }
+
+  get totalJobCost(): number {
+    return this.actualLaborCost +
+      this.actualLaborCost +
+      (this.actualLaborCost + this.overheadRate);
+  }
 }

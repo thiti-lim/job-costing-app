@@ -9,6 +9,20 @@
       >
         BACK
       </button>
+      <div>
+        <button
+          class="bg-cyan-500 text-white py-2 px-4 rounded-md shadow mr-2"
+          (click)="goBack()"
+        >
+          ADD MATERIAL
+        </button>
+        <button
+          class="bg-green-500 text-white py-2 px-4 rounded-md shadow"
+          (click)="goBack()"
+        >
+          ADD LABOR
+        </button>
+      </div>
     </div>
     <!-- card header -->
     <div
@@ -27,17 +41,12 @@
         </div>
       </div>
     </div>
-    <!-- card content -->
-    <div class="flex-col bg-white px-2 py-5 rounded-b-lg">
-      <!-- inputs -->
-      <div class="flex justify-evenly">
-        <!-- material -->
-        <div class="flex-col grow w-1/2 mx-5">
-          <div class="text-center mb-4">Direct Materials</div>
-          <hr class="mb-5 h-1" />
+    <mat-tab-group class="bg-white rounded-b-lg mb-10">
+      <mat-tab label="MATERIALS">
+        <div class="flex-col mx-3">
           <div
             *ngFor="let material of job.materials"
-            class="flex justify-between my-5 border-b"
+            class="flex justify-between my-5 mx-5 border-b"
           >
             <div class="mb-5">
               <div class="text-xl mb-2 font-medium text-teal-700">
@@ -69,16 +78,29 @@
                     }}%)
                   </div>
                 </div>
-                <div class="bg-gray-200 rounded-full h-1">
+                <div class="w-full bg-gray-200 rounded-full h-1 mb-3">
                   <div
-                    class="bg-blue-600 h-1 rounded-full"
-                    [style.width.%]="
-                      getProgressBarWidth(
-                        material.actualTotalCost,
-                        material.estimatedTotalCost
-                      )
+                    *ngIf="
+                      material.actualTotalCost > material.estimatedTotalCost
                     "
-                  ></div>
+                  >
+                    <div class="bg-red-600 h-1 rounded-full"></div>
+                  </div>
+                  <div
+                    *ngIf="
+                      material.actualTotalCost <= material.estimatedTotalCost
+                    "
+                  >
+                    <div
+                      class="bg-blue-600 h-1 rounded-full"
+                      [style.width.%]="
+                        getProgressBarWidth(
+                          material.actualTotalCost,
+                          material.estimatedTotalCost
+                        )
+                      "
+                    ></div>
+                  </div>
                 </div>
               </div>
               <div>
@@ -93,15 +115,20 @@
                   </div>
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-1 mb-3">
-                  <div
-                    class="bg-blue-600 h-1 rounded-full"
-                    [style.width.%]="
-                      getProgressBarWidth(
-                        material.actualUnits,
-                        material.estimatedUnits
-                      )
-                    "
-                  ></div>
+                  <div *ngIf="material.actualUnits > material.estimatedUnits">
+                    <div class="bg-red-600 h-1 rounded-full"></div>
+                  </div>
+                  <div *ngIf="material.actualUnits <= material.estimatedUnits">
+                    <div
+                      class="bg-blue-600 h-1 rounded-full"
+                      [style.width.%]="
+                        getProgressBarWidth(
+                          material.actualUnits,
+                          material.estimatedUnits
+                        )
+                      "
+                    ></div>
+                  </div>
                 </div>
               </div>
               <div class="flex justify-end">
@@ -144,16 +171,51 @@
               </div>
             </div>
           </div>
+          <div class="flex-col mb-8 mx-5 w-1/2">
+            <div class="text-start text-purple-800 text-xl font-medium mb-3">
+              Material Cost Summary
+            </div>
+            <div class="flex justify-between">
+              <div class="font-thin">Estimated Cost</div>
+              <div class="font-medium">
+                {{ job.estimatedMaterialCost | number : '1.0-0' }}
+              </div>
+            </div>
+            <div class="flex justify-between mb-2">
+              <div class="font-thin">Actual Cost</div>
+              <div class="font-medium">
+                {{ job.actualMaterialCost | number : '1.0-0' }}
+              </div>
+            </div>
+            <hr />
+            <div class="flex justify-between mt-2">
+              <div class="font-thin">Cost difference</div>
+              <div class="font-medium">
+                {{
+                  job.estimatedMaterialCost - job.actualMaterialCost
+                    | number : '1.0-0'
+                }}
+              </div>
+            </div>
+            <div class="flex justify-between">
+              <div class="font-thin">% difference</div>
+              <div class="font-medium">
+                {{
+                  calculatePercentError(
+                    job.actualMaterialCost,
+                    job.estimatedMaterialCost
+                  ) | number : '1.1-1'
+                }}%
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div class="w-0.5 bg-gray-300"></div>
-        <!-- labor -->
-        <div class="flex-col w-1/2 mx-5">
-          <div class="text-center mb-4">Direct Labors</div>
-          <hr class="mb-5 h-1" />
+      </mat-tab>
+      <mat-tab label="LABORS">
+        <div class="flex-col mx-3">
           <div
             *ngFor="let labor of job.labors"
-            class="flex justify-between my-5 border-b"
+            class="flex justify-between my-5 mx-5 border-b"
           >
             <div class="mb-5">
               <div class="text-xl mb-2 font-medium text-teal-700">
@@ -185,16 +247,23 @@
                     }}%)
                   </div>
                 </div>
-                <div class="bg-gray-200 rounded-full h-1">
+                <div class="w-full bg-gray-200 rounded-full h-1 mb-3">
+                  <div *ngIf="labor.actualTotalCost > labor.estimatedTotalCost">
+                    <div class="bg-red-600 h-1 rounded-full"></div>
+                  </div>
                   <div
-                    class="bg-blue-600 h-1 rounded-full"
-                    [style.width.%]="
-                      getProgressBarWidth(
-                        labor.actualTotalCost,
-                        labor.estimatedTotalCost
-                      )
-                    "
-                  ></div>
+                    *ngIf="labor.actualTotalCost <= labor.estimatedTotalCost"
+                  >
+                    <div
+                      class="bg-blue-600 h-1 rounded-full"
+                      [style.width.%]="
+                        getProgressBarWidth(
+                          labor.actualTotalCost,
+                          labor.estimatedTotalCost
+                        )
+                      "
+                    ></div>
+                  </div>
                 </div>
               </div>
               <div>
@@ -208,15 +277,20 @@
                   </div>
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-1 mb-3">
-                  <div
-                    class="bg-blue-600 h-1 rounded-full"
-                    [style.width.%]="
-                      getProgressBarWidth(
-                        labor.actualHours,
-                        labor.estimatedHours
-                      )
-                    "
-                  ></div>
+                  <div *ngIf="labor.actualHours > labor.estimatedHours">
+                    <div class="bg-red-600 h-1 rounded-full"></div>
+                  </div>
+                  <div *ngIf="labor.actualHours <= labor.estimatedHours">
+                    <div
+                      class="bg-blue-600 h-1 rounded-full"
+                      [style.width.%]="
+                        getProgressBarWidth(
+                          labor.actualHours,
+                          labor.estimatedHours
+                        )
+                      "
+                    ></div>
+                  </div>
                 </div>
               </div>
               <div class="flex justify-end">
@@ -259,16 +333,78 @@
               </div>
             </div>
           </div>
+          <div class="flex-col mb-8 mx-5 w-1/2">
+            <div class="text-start text-purple-800 text-xl font-medium mb-3">
+              Labor Cost Summary
+            </div>
+            <div class="flex justify-between">
+              <div class="font-thin">Estimated Cost</div>
+              <div class="font-medium">
+                {{ job.estimatedLaborCost | number : '1.0-0' }}
+              </div>
+            </div>
+            <div class="flex justify-between mb-2">
+              <div class="font-thin">Actual Cost</div>
+              <div class="font-medium">
+                {{ job.actualLaborCost | number : '1.0-0' }}
+              </div>
+            </div>
+            <hr />
+            <div class="flex justify-between mt-2">
+              <div class="font-thin">Cost difference</div>
+              <div class="font-medium">
+                {{
+                  job.estimatedLaborCost - job.actualLaborCost
+                    | number : '1.0-0'
+                }}
+              </div>
+            </div>
+            <div class="flex justify-between">
+              <div class="font-thin">% difference</div>
+              <div class="font-medium">
+                {{
+                  calculatePercentError(
+                    job.actualLaborCost,
+                    job.estimatedLaborCost
+                  ) | number : '1.1-1'
+                }}%
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="flex justify-end mt-5">
-      <button
-        class="bg-red-500 px-3 py-2 rounded text-white"
-        (click)="removeJob(job)"
-      >
-        DELETE JOB
-      </button>
-    </div>
+      </mat-tab>
+      <mat-tab label="SUMMARY">
+        <div class="py-10 px-20">
+          <div class="text-center mb-5 text-teal-700 font-medium text-lg">
+            Cost Summary
+          </div>
+          <div class="flex justify-between">
+            <div class="font-thin">Direct Material Costs</div>
+            <div class="font-medium">
+              {{ job.actualMaterialCost | number : '1.0-1' }}
+            </div>
+          </div>
+          <div class="flex justify-between">
+            <div class="font-thin">Direct Labor Costs</div>
+            <div class="font-medium">
+              {{ job.actualLaborCost | number : '1.0-1' }}
+            </div>
+          </div>
+          <div class="flex justify-between">
+            <div class="font-thin">Overhead rate</div>
+            <div class="font-medium">
+              {{ job.overheadRate * 100 | number : '1.0-1' }}%
+            </div>
+          </div>
+          <hr class="my-3" />
+          <div class="flex justify-between">
+            <div class="font-thin">Total Job Cost</div>
+            <div class="font-medium">
+              {{ job.totalJobCost | number : '1.0-1' }}
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>
