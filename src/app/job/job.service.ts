@@ -376,7 +376,7 @@ export class JobService {
       this.customerService.getCustomerById(1)!,
       new Date(),
       new Date(),
-      0.1,
+      10,
       [new Material(1, 'Wood', 40, 500), new Material(2, 'Material 2', 92, 50)],
 
       [new Labor(1, 'Labor 1', 500, 10000), new Labor(2, 'Labor 2', 20, 200)]
@@ -388,7 +388,7 @@ export class JobService {
       this.customerService.getCustomerById(2)!,
       new Date(),
       new Date(),
-      0.2,
+      20,
       [new Material(3, 'Material 3', 30, 300)],
       [new Labor(3, 'Labor 3', 30, 300)]
     );
@@ -399,7 +399,7 @@ export class JobService {
       this.customerService.getCustomerById(2)!,
       new Date(),
       new Date(),
-      0.15,
+      15,
       [
         new Material(4, 'Material 4', 40, 400),
         new Material(5, 'Material 5', 50, 500),

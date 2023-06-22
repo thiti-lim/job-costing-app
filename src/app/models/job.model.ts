@@ -82,8 +82,18 @@ export class Job {
   }
 
   get totalJobCost(): number {
-    return this.actualLaborCost +
+    return (
       this.actualLaborCost +
-      (this.actualLaborCost + this.overheadRate);
+      this.actualLaborCost +
+      this.actualLaborCost * (this.overheadRate / 100)
+    );
+  }
+
+  get estimateJobCost(): number {
+    return (
+      this.estimatedMaterialCost +
+      this.estimatedLaborCost +
+      this.estimatedLaborCost * (this.overheadRate / 100)
+    );
   }
 }

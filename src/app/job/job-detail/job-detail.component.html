@@ -391,9 +391,11 @@
             </div>
           </div>
           <div class="flex justify-between">
-            <div class="font-thin">Overhead rate</div>
+            <div class="font-thin">Overhead</div>
             <div class="font-medium">
-              {{ job.overheadRate * 100 | number : '1.0-1' }}%
+              {{ (job.overheadRate * job.actualLaborCost) / 100 }} ({{
+                job.overheadRate | number : '1.0-1'
+              }}%)
             </div>
           </div>
           <hr class="my-3" />
