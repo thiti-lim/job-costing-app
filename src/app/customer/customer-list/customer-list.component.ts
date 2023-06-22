@@ -39,7 +39,7 @@ export class CustomerListComponent {
   }
 
   addCustomer() {
-    this.router.navigate(['/customer/new']);
+    this.router.navigate(['/customer/list/new']);
   }
 
   goBack(): void {

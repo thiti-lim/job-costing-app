@@ -42,7 +42,7 @@ const routes: Routes = [
   },
   { path: 'customer/list', component: CustomerListComponent },
   { path: 'customer/list/:customerId', component: CustomerDetailComponent },
-  { path: 'customer/new', component: CustomerDetailComponent },
+  { path: 'customer/list/new', component: CustomerDetailComponent },
   { path: '', redirectTo: '/job/history', pathMatch: 'full' },
 ];
 

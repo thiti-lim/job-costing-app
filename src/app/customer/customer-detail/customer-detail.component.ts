@@ -85,7 +85,7 @@ export class CustomerDetailComponent {
         this.contact!.value,
         this.phoneNumber!.value
       );
-      this.router.navigateByUrl('/customer');
+      this.router.navigateByUrl('/customer/list');
     } else {
       this.customerService.updateCustomer(
         this.customer!.id,
