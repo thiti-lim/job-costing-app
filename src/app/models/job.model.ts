@@ -83,7 +83,7 @@ export class Job {
 
   get totalJobCost(): number {
     return (
-      this.actualLaborCost +
+      this.actualMaterialCost +
       this.actualLaborCost +
       this.actualLaborCost * (this.overheadRate / 100)
     );
