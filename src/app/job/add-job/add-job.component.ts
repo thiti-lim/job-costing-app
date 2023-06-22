@@ -112,7 +112,7 @@ export class AddJobComponent {
         '',
         [Validators.required, whitespaceValidator(), positiveNumberValidator()],
       ],
-      estimatedTotalCost: [
+      estimatedCostPerUnit: [
         '',
         [Validators.required, whitespaceValidator(), positiveNumberValidator()],
       ],
@@ -124,7 +124,7 @@ export class AddJobComponent {
     const labForm = this.formBuilder.group({
       laborName: ['', Validators.required],
       estimatedHours: ['', [Validators.required, positiveNumberValidator()]],
-      estimatedTotalCost: [
+      estimatedRatePerHour: [
         '',
         [Validators.required, positiveNumberValidator()],
       ],

@@ -51,7 +51,7 @@
               </div>
               <div class="flex text-sm text-gray-500">
                 <div class="font-medium mr-1">
-                  {{ material.costPerUnit | number : '1.1-2' }}
+                  {{ material.actualCostPerUnit | number : '1.1-2' }}
                 </div>
                 <div class="font-light">baht per unit</div>
               </div>
@@ -65,7 +65,7 @@
                     {{ material.estimatedTotalCost }}
                     ({{
                       (material.actualTotalCost / material.estimatedTotalCost) *
-                        100 | number : '1.0-0'
+                        100 | number : '1.0-1'
                     }}%)
                   </div>
                 </div>
@@ -74,8 +74,8 @@
                     class="bg-blue-600 h-1 rounded-full"
                     [style.width.%]="
                       getProgressBarWidth(
-                        material.actualUnits,
-                        material.estimatedUnits
+                        material.actualTotalCost,
+                        material.estimatedTotalCost
                       )
                     "
                   ></div>
@@ -88,7 +88,7 @@
                     {{ material.actualUnits }} /
                     {{ material.estimatedUnits }} ({{
                       (material.actualUnits / material.estimatedUnits) * 100
-                        | number : '1.0-0'
+                        | number : '1.0-1'
                     }}%)
                   </div>
                 </div>
@@ -97,8 +97,8 @@
                     class="bg-blue-600 h-1 rounded-full"
                     [style.width.%]="
                       getProgressBarWidth(
-                        material.actualTotalCost,
-                        material.estimatedTotalCost
+                        material.actualUnits,
+                        material.estimatedUnits
                       )
                     "
                   ></div>
@@ -167,7 +167,7 @@
               </div>
               <div class="flex text-sm text-gray-500">
                 <div class="font-medium mr-1">
-                  {{ labor.costPerHour | number : '1.1-2' }}
+                  {{ labor.actualTotalCost | number : '1.1-2' }}
                 </div>
                 <div class="font-light">baht per unit</div>
               </div>
@@ -181,7 +181,7 @@
                     {{ labor.estimatedTotalCost }}
                     ({{
                       (labor.actualTotalCost / labor.estimatedTotalCost) * 100
-                        | number : '1.0-0'
+                        | number : '1.0-1'
                     }}%)
                   </div>
                 </div>
@@ -203,7 +203,7 @@
                   <div class="text-xs">
                     {{ labor.actualHours }} / {{ labor.estimatedHours }} ({{
                       (labor.actualHours / labor.estimatedHours) * 100
-                        | number : '1.0-0'
+                        | number : '1.0-1'
                     }}%)
                   </div>
                 </div>
@@ -263,8 +263,9 @@
       </div>
     </div>
     <div class="flex justify-end mt-5">
-      <button class="bg-red-500 px-3 py-2 rounded text-white"
-      (click)="removeJob(job)"
+      <button
+        class="bg-red-500 px-3 py-2 rounded text-white"
+        (click)="removeJob(job)"
       >
         DELETE JOB
       </button>

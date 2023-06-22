@@ -113,7 +113,7 @@ export class JobService {
         materialId,
         materialData.materialName,
         parseInt(materialData.estimatedUnits),
-        parseInt(materialData.estimatedTotalCost)
+        parseInt(materialData.estimatedCostPerUnit)
       );
     });
 
@@ -123,7 +123,7 @@ export class JobService {
         laborId,
         laborData.laborName,
         parseInt(laborData.estimatedHours),
-        parseInt(laborData.estimatedTotalCost)
+        parseInt(laborData.estimatedRatePerHour)
       );
     });
 
@@ -418,7 +418,7 @@ export class JobService {
     );
     job1.materials[0].directMaterialCosts.push(
       new DirectMaterialCost(
-        2,
+        6,
         'Direct Material Cost 2',
         20,
         15,

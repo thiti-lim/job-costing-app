@@ -204,7 +204,7 @@
                 formControlName="materialName"
                 id="materialName"
                 class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block p-2.5 w-full"
-                placeholder="Enter customer name"
+                placeholder="Enter material name"
                 required
               />
             </div>
@@ -242,33 +242,33 @@
                 formControlName="estimatedUnits"
                 id="estimatedUnits"
                 class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block p-2.5"
-                placeholder="Enter customer name"
+                placeholder="Enter units"
                 required
               />
             </div>
             <div class="mr-8">
               <div class="flex">
                 <label
-                  for="estimatedTotalCost"
+                  for="estimatedCostPerUnit"
                   class="mb-2 text-sm font-medium text-gray-900 block"
-                  >Estimated Cost</label
+                  >Estimated Cost Per Unit</label
                 >
                 <div
                   *ngIf="
-                    materials.at(i).get('estimatedTotalCost')?.invalid &&
-                    (materials.at(i).get('estimatedTotalCost')?.dirty ||
-                      materials.at(i).get('estimatedTotalCost')?.touched)
+                    materials.at(i).get('estimatedCostPerUnit')?.invalid &&
+                    (materials.at(i).get('estimatedCostPerUnit')?.dirty ||
+                      materials.at(i).get('estimatedCostPerUnit')?.touched)
                   "
                   class="ml-2"
                 >
                   <div
-                    *ngIf="materials.at(i).get('estimatedTotalCost')?.errors?.['required']"
+                    *ngIf="materials.at(i).get('estimatedCostPerUnit')?.errors?.['required']"
                     class="text-red-500 text-sm"
                   >
                     Required
                   </div>
                   <div
-                    *ngIf="materials.at(i).get('estimatedTotalCost')?.errors?.['positiveNumber'] || materials.at(i).get('estimatedTotalCost')?.errors?.['whitespace']"
+                    *ngIf="materials.at(i).get('estimatedCostPerUnit')?.errors?.['positiveNumber'] || materials.at(i).get('estimatedCostPerUnit')?.errors?.['whitespace']"
                     class="text-red-500 text-sm"
                   >
                     Invalid
@@ -277,10 +277,10 @@
               </div>
               <input
                 type="text"
-                formControlName="estimatedTotalCost"
-                id="estimatedTotalCost"
+                formControlName="estimatedCostPerUnit"
+                id="estimatedCostPerUnit"
                 class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block p-2.5"
-                placeholder="Enter customer name"
+                placeholder="Enter cost per unit"
                 required
               />
             </div>
@@ -348,12 +348,12 @@
           [formGroupName]="i"
         >
           <div class="flex mb-6 items-end">
-            <div class="mr-5 w-1/2">
+            <div class="mr-5 w-1/3">
               <div class="flex">
                 <label
                   for="laborName"
                   class="mb-2 text-sm font-medium text-gray-900 block"
-                  >Labor Department</label
+                  >Labor Name</label
                 >
                 <div
                   *ngIf="
@@ -376,7 +376,7 @@
                 formControlName="laborName"
                 id="laborName"
                 class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block p-2.5 w-full"
-                placeholder="Enter customer name"
+                placeholder="Enter labor name"
                 required
               />
             </div>
@@ -385,7 +385,7 @@
                 <label
                   for="estimatedHours"
                   class="mb-2 text-sm font-medium text-gray-900 block"
-                  >Estimated Cost</label
+                  >Estimated Hours</label
                 >
                 <div
                   *ngIf="
@@ -414,33 +414,33 @@
                 formControlName="estimatedHours"
                 id="estimatedHours"
                 class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block p-2.5"
-                placeholder="Enter customer name"
+                placeholder="Enter hours"
                 required
               />
             </div>
             <div class="mr-8">
               <div class="flex">
                 <label
-                  for="estimatedTotalCost"
+                  for="estimatedRatePerHour"
                   class="mb-2 text-sm font-medium text-gray-900 block"
-                  >Estimated Cost</label
+                  >Estimated total wages</label
                 >
                 <div
                   *ngIf="
-                    labors.at(i).get('estimatedTotalCost')?.invalid &&
-                    (labors.at(i).get('estimatedTotalCost')?.dirty ||
-                      labors.at(i).get('estimatedTotalCost')?.touched)
+                    labors.at(i).get('estimatedRatePerHour')?.invalid &&
+                    (labors.at(i).get('estimatedRatePerHour')?.dirty ||
+                      labors.at(i).get('estimatedRatePerHour')?.touched)
                   "
                   class="ml-2"
                 >
                   <div
-                    *ngIf="labors.at(i).get('estimatedTotalCost')?.errors?.['required']"
+                    *ngIf="labors.at(i).get('estimatedRatePerHour')?.errors?.['required']"
                     class="text-red-500 text-sm"
                   >
                     Required
                   </div>
                   <div
-                    *ngIf="labors.at(i).get('estimatedTotalCost')?.errors?.['positiveNumber'] || labors.at(i).get('estimatedTotalCost')?.errors?.['whitespace']"
+                    *ngIf="labors.at(i).get('estimatedRatePerHour')?.errors?.['positiveNumber'] || labors.at(i).get('estimatedRatePerHour')?.errors?.['whitespace']"
                     class="text-red-500 text-sm"
                   >
                     Invalid
@@ -449,10 +449,10 @@
               </div>
               <input
                 type="text"
-                formControlName="estimatedTotalCost"
-                id="estimatedTotalCost"
+                formControlName="estimatedRatePerHour"
+                id="estimatedRatePerHour"
                 class="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-600 focus:border-2 block p-2.5"
-                placeholder="Enter customer name"
+                placeholder="Enter rate per hour"
                 required
               />
             </div>

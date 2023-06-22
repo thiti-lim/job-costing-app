@@ -105,8 +105,8 @@ export class LaborCostDetailComponent {
             this.labId,
             this.name!.value,
             this.refNo!.value,
-            this.hours!.value,
-            this.costPerHour!.value,
+            Number(this.hours!.value),
+            Number(this.costPerHour!.value),
             this.date!.value
           );
           this.location.back();
@@ -117,8 +117,8 @@ export class LaborCostDetailComponent {
             this.cost!.id,
             this.name!.value,
             this.refNo!.value,
-            this.hours!.value,
-            this.costPerHour!.value,
+            Number(this.hours!.value),
+            Number(this.costPerHour!.value),
             this.date!.value
           );
           this.location.back();

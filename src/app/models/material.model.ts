@@ -4,20 +4,26 @@ export class Material {
   id: number;
   name: string;
   estimatedUnits: number;
-  estimatedTotalCost: number;
+  estimatedCostPerUnit: number;
   directMaterialCosts: DirectMaterialCost[];
 
   constructor(
     id: number,
     name: string,
     estimatedUnits: number,
-    estimatedTotalCost: number
+    estimatedCostPerUnit: number
   ) {
     this.id = id;
     this.name = name;
     this.estimatedUnits = estimatedUnits;
-    this.estimatedTotalCost = estimatedTotalCost;
+    this.estimatedCostPerUnit = estimatedCostPerUnit;
     this.directMaterialCosts = [];
+  }
+
+  get estimatedTotalCost(): number {
+    if (this.estimatedUnits == 0) return 0;
+
+    return this.estimatedUnits * this.estimatedCostPerUnit;
   }
 
   get actualTotalCost(): number {
@@ -33,7 +39,7 @@ export class Material {
     );
   }
 
-  get costPerUnit(): number {
+  get actualCostPerUnit(): number {
     if (this.actualUnits == 0) return 0;
 
     return this.actualTotalCost / this.actualUnits;

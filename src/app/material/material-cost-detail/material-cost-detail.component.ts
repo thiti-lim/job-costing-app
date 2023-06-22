@@ -112,8 +112,8 @@ export class MaterialCostDetailComponent {
             this.name!.value,
             this.refNo!.value,
             this.seller!.value,
-            this.units!.value,
-            this.costPerUnit!.value,
+            Number(this.units!.value),
+            Number(this.costPerUnit!.value),
             this.date!.value
           );
           this.location.back();
@@ -125,8 +125,8 @@ export class MaterialCostDetailComponent {
             this.name!.value,
             this.refNo!.value,
             this.seller!.value,
-            this.units!.value,
-            this.costPerUnit!.value,
+            Number(this.units!.value),
+            Number(this.costPerUnit!.value),
             this.date!.value
           );
           this.location.back();

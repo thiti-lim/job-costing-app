@@ -4,20 +4,24 @@ export class Labor {
   id: number;
   name: string;
   estimatedHours: number;
-  estimatedTotalCost: number;
+  estimatedRatePerHour: number;
   directLaborCosts: DirectLaborCost[] = [];
 
   constructor(
     id: number,
     name: string,
     estimatedHours: number,
-    estimatedTotalCost: number
+    estimatedRatePerHour: number
   ) {
     this.id = id;
     this.name = name;
     this.estimatedHours = estimatedHours;
-    this.estimatedTotalCost = estimatedTotalCost;
+    this.estimatedRatePerHour = estimatedRatePerHour;
     this.directLaborCosts = [];
+  }
+
+  get estimatedTotalCost(): number {
+    return this.estimatedHours * this.estimatedRatePerHour;
   }
 
   get actualTotalCost(): number {
@@ -33,8 +37,8 @@ export class Labor {
     );
   }
 
-  get costPerHour(): number {
-    if (this.actualHours == 0) return 0; 
+  get actualRatePerHour(): number {
+    if (this.actualHours == 0) return 0;
     return this.actualTotalCost / this.actualHours;
   }
 }
