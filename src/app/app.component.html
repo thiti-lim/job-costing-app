@@ -1,51 +1,10 @@
-<mat-sidenav-container class="h-screen">
-  <mat-sidenav
-    #sidenav
-    mode="side"
-    opened="true"
-    class="w-64 bg-gray-50 shadow-xl border-x-gray-200 border-x-0"
-  >
-    <ul>
-      <ul class="px-6 py-8">
-        <li class="text-gray-800 font-l text-xl mb-5">Thiti Limphaibool</li>
-        <hr />
-        <li class="text-gray-800 font-thin text-xl mb-4 mt-5">
-          <a routerLink="/job/history">Jobs</a>
-        </li>
-        <li class="text-gray-800 font-thin text-xl mb-5">
-          <a routerLink="/customer/list">Customers</a>
-        </li>
-        <hr />
-        <li class="text-gray-800 font-thin text-xl mt-5">Sign out</li>
-      </ul>
-    </ul>
-    <!-- Content of the sidenav -->
-  </mat-sidenav>
-
-  <mat-sidenav-content class="bg-gray-200">
-    <div class="flex items-center bg-purple-700 h-16">
-      <button (click)="sidenav.toggle()">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.7"
-          stroke="currentColor"
-          class="mt-0.5 w-8 h-8 ml-5 text-gray-100"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          />
-        </svg>
-      </button>
-      <div class="text-gray-100 ml-2 text-2xl font-semibold">
-        <h1 style="letter-spacing: 0.05em">numera</h1>
-      </div>
+<div class="bg-gray-100 h-full">
+  <div class="flex items-center bg-purple-700 h-16">
+    <div class="text-gray-100 ml-5 text-2xl font-semibold">
+      <h1 style="letter-spacing: 0.05em">Budget Buddy</h1>
     </div>
-    <div>
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </div>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

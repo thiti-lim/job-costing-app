@@ -23,6 +23,7 @@ import { AddDialogComponent } from './components/dialog/add-dialog/add-dialog.co
 import { EditDialogComponent } from './components/dialog/edit-dialog/edit-dialog.component';
 import { AddMaterialComponent } from './components/dialog/add-material/add-material.component';
 import { AddLaborComponent } from './components/dialog/add-labor/add-labor.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: 'job/history', component: JobHistoryComponent },
@@ -45,7 +46,7 @@ const routes: Routes = [
   { path: 'customer/list', component: CustomerListComponent },
   { path: 'customer/list/:customerId', component: CustomerDetailComponent },
   { path: 'customer/list/new', component: CustomerDetailComponent },
-  { path: '', redirectTo: '/job/history', pathMatch: 'full' },
+  { path: '', component: LoginComponent },
 ];
 
 @NgModule({
@@ -67,6 +68,7 @@ const routes: Routes = [
     EditDialogComponent,
     AddMaterialComponent,
     AddLaborComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
