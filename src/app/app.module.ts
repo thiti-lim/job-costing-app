@@ -24,6 +24,8 @@ import { EditDialogComponent } from './components/dialog/edit-dialog/edit-dialog
 import { AddMaterialComponent } from './components/dialog/add-material/add-material.component';
 import { AddLaborComponent } from './components/dialog/add-labor/add-labor.component';
 import { LoginComponent } from './login/login.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MsalModule } from '@azure/msal-angular';
 
 const routes: Routes = [
   { path: 'job/history', component: JobHistoryComponent },
@@ -76,6 +78,8 @@ const routes: Routes = [
     MaterialModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
+    HttpClientModule,
+    MsalModule,
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   bootstrap: [AppComponent],
