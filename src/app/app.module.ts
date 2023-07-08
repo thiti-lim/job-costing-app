@@ -24,11 +24,17 @@ import { EditDialogComponent } from './components/dialog/edit-dialog/edit-dialog
 import { AddMaterialComponent } from './components/dialog/add-material/add-material.component';
 import { AddLaborComponent } from './components/dialog/add-labor/add-labor.component';
 import { LoginComponent } from './login/login.component';
-import { HttpClientModule } from '@angular/common/http';
-import { MsalModule } from '@azure/msal-angular';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MsalGuard, MsalInterceptor, MsalModule } from '@azure/msal-angular';
+import { msalConfig, protectedResources } from './auth-config';
+import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
 
 const routes: Routes = [
-  { path: 'job/history', component: JobHistoryComponent },
+  {
+    path: 'job/history',
+    component: JobHistoryComponent,
+    canActivate: [MsalGuard],
+  },
   { path: 'job', redirectTo: 'job/history', pathMatch: 'full' },
   { path: 'job/new', component: AddJobComponent },
   { path: 'job/:jobId', component: JobDetailComponent },
@@ -45,9 +51,21 @@ const routes: Routes = [
     path: 'job/:jobId/labor/:labId/costs/:dlId',
     component: LaborCostDetailComponent,
   },
-  { path: 'customer/list', component: CustomerListComponent },
-  { path: 'customer/list/:customerId', component: CustomerDetailComponent },
-  { path: 'customer/list/new', component: CustomerDetailComponent },
+  {
+    path: 'customer/list',
+    component: CustomerListComponent,
+    canActivate: [MsalGuard],
+  },
+  {
+    path: 'customer/list/:customerId',
+    component: CustomerDetailComponent,
+    canActivate: [MsalGuard],
+  },
+  {
+    path: 'customer/list/new',
+    component: CustomerDetailComponent,
+    canActivate: [MsalGuard],
+  },
   { path: '', component: LoginComponent },
 ];
 
@@ -79,9 +97,34 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
     HttpClientModule,
-    MsalModule,
+    MsalModule.forRoot(
+      new PublicClientApplication(msalConfig),
+      {
+        // The routing guard configuration.
+        interactionType: InteractionType.Redirect,
+        authRequest: {
+          scopes: protectedResources.bbApi.scopes,
+        },
+      },
+      {
+        // MSAL interceptor configuration.
+        // The protected resource mapping maps your web API with the corresponding app scopes. If your code needs to call another web API, add the URI mapping here.
+        interactionType: InteractionType.Redirect,
+        protectedResourceMap: new Map([
+          [protectedResources.bbApi.endpoint, protectedResources.bbApi.scopes],
+        ]),
+      }
+    ),
   ],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true,
+    },
+    MsalGuard,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
