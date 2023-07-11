@@ -76,23 +76,21 @@ export class CustomerDetailComponent {
       this.customerForm.markAllAsTouched();
       return;
     }
-    var customer = new Customer(
+    var newCustomer = new Customer(
       this.name!.value,
       this.location!.value,
       this.contact!.value,
       this.phoneNumber!.value
     );
     if (this.isNewCustomer) {
-      this.customerService.addCustomer(customer).subscribe();
+      this.customerService.addCustomer(newCustomer).subscribe();
       this.router.navigateByUrl('/customer/list');
     } else {
-      // this.customerService.updateCustomer(
-      //   this.customer!.id,
-      //   this.name!.value,
-      //   this.location!.value,
-      //   this.contact!.value,
-      //   this.phoneNumber!.value
-      // );
+      this.customer!.name = this.name!.value;
+      this.customer!.location = this.location!.value;
+      this.customer!.contact = this.contact!.value;
+      this.customer!.phoneNumber = this.phoneNumber!.value;
+      this.customerService.updateCustomer(this.customer!);
       this.router.navigateByUrl('/customer/list');
     }
   }

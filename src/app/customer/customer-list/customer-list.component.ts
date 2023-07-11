@@ -1,6 +1,6 @@
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerService } from './../customer.service';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/components/dialog/delete-dialog/delete-dialog.component';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ export class CustomerListComponent {
   constructor(
     private customerService: CustomerService,
     private dialog: MatDialog,
+    private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
     private location: Location
   ) {}
@@ -35,13 +36,10 @@ export class CustomerListComponent {
     const dialogRef = this.dialog.open(DeleteDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.customerService.deleteCustomer(customer);
+        this.customers = this.customers.filter((c) => c.id != customer.id);
+        this.customerService.deleteCustomer(customer).subscribe();
       }
     });
-  }
-
-  updateCustomers(customers: Customer[]) {
-    this.customers = customers;
   }
 
   addCustomer() {

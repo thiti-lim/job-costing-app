@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environment/environment';
 import { Observable, ObservedValueOf, tap } from 'rxjs';
-import { httpOptions } from '../helpers/http.options';
 
 @Injectable({
   providedIn: 'root',
@@ -24,8 +23,7 @@ export class CustomerService {
     console.log(customer);
     return this.http.post<Customer[]>(
       `${environment.apiUrl}/${this.path}`,
-      customer,
-      httpOptions
+      customer
     );
   }
   updateCustomer(customer: Customer): Observable<Customer[]> {
