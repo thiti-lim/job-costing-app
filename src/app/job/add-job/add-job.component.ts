@@ -44,7 +44,7 @@ export class AddJobComponent {
   ) {}
 
   ngOnInit(): void {
-    this.customers = this.customerService.getCustomers();
+    this.customers = [];
     this.jobForm = this.formBuilder.group({
       name: ['', Validators.required],
       customer: ['', Validators.required],

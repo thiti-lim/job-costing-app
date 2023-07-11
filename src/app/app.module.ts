@@ -54,17 +54,14 @@ const routes: Routes = [
   {
     path: 'customer/list',
     component: CustomerListComponent,
-    canActivate: [MsalGuard],
   },
   {
     path: 'customer/list/:customerId',
     component: CustomerDetailComponent,
-    canActivate: [MsalGuard],
   },
   {
     path: 'customer/list/new',
     component: CustomerDetailComponent,
-    canActivate: [MsalGuard],
   },
   { path: '', component: LoginComponent },
 ];

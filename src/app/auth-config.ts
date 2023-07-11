@@ -29,13 +29,6 @@ export const msalConfig: Configuration = {
     storeAuthStateInCookie: false,
   },
   system: {
-    loggerOptions: {
-      loggerCallback: (logLevel, message, containsPii) => {
-        console.log(message);
-      },
-      logLevel: LogLevel.Verbose,
-      piiLoggingEnabled: false,
-    },
     allowNativeBroker: false,
   },
 };

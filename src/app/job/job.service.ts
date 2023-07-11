@@ -100,11 +100,8 @@ export class JobService {
     const customerId = jobData.customer.id;
 
     const customer = new Customer(
-      customerId,
-      jobData.customer.name,
-      jobData.customer.location,
-      jobData.customer.phoneNumber,
-      jobData.customer.contact
+      "test", "test", "test", "test"
+
     );
 
     const materials: Material[] = jobData.materials.map((materialData: any) => {
@@ -373,7 +370,7 @@ export class JobService {
     const job1 = new Job(
       1,
       'Job 1',
-      this.customerService.getCustomerById(1)!,
+      new Customer('test', 'test', 'test', '0933333333'),
       new Date(),
       new Date(),
       10,
@@ -385,7 +382,7 @@ export class JobService {
     const job2 = new Job(
       2,
       'Job 2',
-      this.customerService.getCustomerById(2)!,
+      new Customer('test', 'test', 'test', '0933333333'),
       new Date(),
       new Date(),
       20,
@@ -396,7 +393,7 @@ export class JobService {
     const job3 = new Job(
       3,
       'Job 3',
-      this.customerService.getCustomerById(2)!,
+      new Customer('test', 'test', 'test', '0933333333'),
       new Date(),
       new Date(),
       15,

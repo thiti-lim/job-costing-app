@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { whitespaceValidator } from 'src/app/helpers/validators';
@@ -16,6 +16,8 @@ export class CustomerDetailComponent {
   customerForm!: FormGroup;
   isNewCustomer!: boolean;
   customer?: Customer;
+  @Output() updatedCustomers = new EventEmitter<Customer[]>();
+
   constructor(
     private customerService: CustomerService,
     private formBuilder: FormBuilder,
@@ -32,24 +34,20 @@ export class CustomerDetailComponent {
     } else {
       this.isNewCustomer = false;
       this.pageTitle = 'update customer';
-      this.customer = this.customerService.getCustomerById(Number(id));
+      this.customerService
+        .getCustomerById(Number(id))
+        .subscribe((result: Customer) => {
+          this.customer = result;
+          this.customerForm.patchValue(result);
+        });
     }
-    // Access the current route or perform any desired action
+
     this.customerForm = this.formBuilder.group({
-      name: [
-        this.customer?.name ?? '',
-        [Validators.required, whitespaceValidator()],
-      ],
-      location: [
-        this.customer?.location ?? '',
-        [Validators.required, whitespaceValidator()],
-      ],
-      contact: [
-        this.customer?.contact ?? '',
-        [Validators.required, whitespaceValidator()],
-      ],
+      name: ['', [Validators.required, whitespaceValidator()]],
+      location: ['', [Validators.required, whitespaceValidator()]],
+      contact: ['', [Validators.required, whitespaceValidator()]],
       phoneNumber: [
-        this.customer?.phoneNumber ?? '',
+        '',
         [Validators.required, Validators.pattern(/^0\d{8,9}$/)],
       ],
     });
@@ -78,22 +76,23 @@ export class CustomerDetailComponent {
       this.customerForm.markAllAsTouched();
       return;
     }
+    var customer = new Customer(
+      this.name!.value,
+      this.location!.value,
+      this.contact!.value,
+      this.phoneNumber!.value
+    );
     if (this.isNewCustomer) {
-      this.customerService.addCustomer(
-        this.name!.value,
-        this.location!.value,
-        this.contact!.value,
-        this.phoneNumber!.value
-      );
+      this.customerService.addCustomer(customer).subscribe();
       this.router.navigateByUrl('/customer/list');
     } else {
-      this.customerService.updateCustomer(
-        this.customer!.id,
-        this.name!.value,
-        this.location!.value,
-        this.contact!.value,
-        this.phoneNumber!.value
-      );
+      // this.customerService.updateCustomer(
+      //   this.customer!.id,
+      //   this.name!.value,
+      //   this.location!.value,
+      //   this.contact!.value,
+      //   this.phoneNumber!.value
+      // );
       this.router.navigateByUrl('/customer/list');
     }
   }

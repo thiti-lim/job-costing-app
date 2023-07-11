@@ -22,7 +22,9 @@ export class CustomerListComponent {
   customers: Customer[] = [];
 
   ngOnInit(): void {
-    this.customers = this.customerService.getCustomers();
+    this.customerService
+      .getCustomers()
+      .subscribe((result: Customer[]) => (this.customers = result));
   }
   editCustomer(customer: Customer) {
     this.router.navigate(['/customer/list', customer.id]);
@@ -36,6 +38,10 @@ export class CustomerListComponent {
         this.customerService.deleteCustomer(customer);
       }
     });
+  }
+
+  updateCustomers(customers: Customer[]) {
+    this.customers = customers;
   }
 
   addCustomer() {
