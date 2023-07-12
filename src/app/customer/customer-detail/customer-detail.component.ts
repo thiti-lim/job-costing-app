@@ -86,10 +86,13 @@ export class CustomerDetailComponent {
       this.customerService.addCustomer(newCustomer).subscribe();
       this.router.navigateByUrl('/customer/list');
     } else {
-      this.customer!.name = this.name!.value;
-      this.customer!.location = this.location!.value;
-      this.customer!.contact = this.contact!.value;
-      this.customer!.phoneNumber = this.phoneNumber!.value;
+      this.customer = {
+        id: this.customer?.id,
+        name: this.name!.value,
+        location: this.location!.value,
+        contact: this.contact!.value,
+        phoneNumber: this.phoneNumber!.value,
+      };
       this.customerService.updateCustomer(this.customer!).subscribe();
       this.router.navigateByUrl('/customer/list');
     }
