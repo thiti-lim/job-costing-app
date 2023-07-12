@@ -90,7 +90,7 @@ export class CustomerDetailComponent {
       this.customer!.location = this.location!.value;
       this.customer!.contact = this.contact!.value;
       this.customer!.phoneNumber = this.phoneNumber!.value;
-      this.customerService.updateCustomer(this.customer!);
+      this.customerService.updateCustomer(this.customer!).subscribe();
       this.router.navigateByUrl('/customer/list');
     }
   }

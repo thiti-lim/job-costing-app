@@ -28,7 +28,7 @@ export class CustomerService {
   }
   updateCustomer(customer: Customer): Observable<Customer[]> {
     return this.http.put<Customer[]>(
-      `${environment.apiUrl}/${this.path}/${customer.id}`,
+      `${environment.apiUrl}/${this.path}`,
       customer
     );
   }
