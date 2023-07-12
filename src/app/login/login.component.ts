@@ -47,6 +47,12 @@ export class LoginComponent {
     }
   }
 
+  logout() {
+    this.authService.logoutRedirect({
+      postLogoutRedirectUri: 'https://localhost:4200',
+    });
+  }
+
   setLoginDisplay() {
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
   }

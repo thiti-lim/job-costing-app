@@ -25,7 +25,16 @@ import { AddMaterialComponent } from './components/dialog/add-material/add-mater
 import { AddLaborComponent } from './components/dialog/add-labor/add-labor.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MsalGuard, MsalInterceptor, MsalModule } from '@azure/msal-angular';
+import {
+  MSAL_INSTANCE,
+  MSAL_INTERCEPTOR_CONFIG,
+  MsalGuard,
+  MsalInterceptor,
+  MsalInterceptorConfiguration,
+  MsalModule,
+  MsalRedirectComponent,
+  ProtectedResourceScopes,
+} from '@azure/msal-angular';
 import { msalConfig, protectedResources } from './auth-config';
 import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
 
@@ -54,6 +63,7 @@ const routes: Routes = [
   {
     path: 'customer/list',
     component: CustomerListComponent,
+    canActivate: [MsalGuard],
   },
   {
     path: 'customer/list/:customerId',
@@ -63,7 +73,7 @@ const routes: Routes = [
     path: 'customer/list/new',
     component: CustomerDetailComponent,
   },
-  { path: '', component: LoginComponent },
+  { path: '', component: HomeComponent },
 ];
 
 @NgModule({
@@ -91,7 +101,9 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, {
+      initialNavigation: 'enabledBlocking',
+    }),
     ReactiveFormsModule,
     HttpClientModule,
     MsalModule.forRoot(
@@ -122,6 +134,6 @@ const routes: Routes = [
     },
     MsalGuard,
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent, MsalRedirectComponent],
 })
 export class AppModule {}

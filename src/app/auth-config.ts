@@ -22,20 +22,31 @@ export const msalConfig: Configuration = {
     clientId: '69416eb0-067a-4575-8c6d-33b36006f1f0',
     authority: b2cPolicies.authorities.signUpSignIn.authority,
     knownAuthorities: [b2cPolicies.authorityDomain],
-    redirectUri: '/',
+    redirectUri: 'http://localhost:4200',
   },
   cache: {
     cacheLocation: BrowserCacheLocation.LocalStorage,
     storeAuthStateInCookie: false,
   },
   system: {
+    loggerOptions: {
+      loggerCallback: (logLevel, message, containsPii) => {
+        console.log(message);
+      },
+      logLevel: LogLevel.Verbose,
+      piiLoggingEnabled: false,
+    },
     allowNativeBroker: false,
   },
 };
 
 export const protectedResources = {
   bbApi: {
-    endpoint: 'http://localhost:7138/',
+    endpoint: 'http://localhost:7138/api/',
     scopes: ['https://budgetbuddyapp.onmicrosoft.com/api/bb.read-write'],
   },
+};
+
+export const loginRequest = {
+  scopes: [],
 };

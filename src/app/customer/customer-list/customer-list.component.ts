@@ -15,7 +15,6 @@ export class CustomerListComponent {
   constructor(
     private customerService: CustomerService,
     private dialog: MatDialog,
-    private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
     private location: Location
   ) {}
